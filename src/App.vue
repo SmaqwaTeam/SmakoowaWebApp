@@ -63,7 +63,7 @@ export default {
   <RouterView></RouterView>
   <footer class="h-10 bg-orange-400 mt-4">
       <div class="container mx-auto px-4">
-        <p class="text-center text-white">Powered by Smakoowa Team 2023 Not all right reserved</p>
+        <p class="text-center text-white">Powered by Smakoowa Team 2023 Not all right reserved XD</p>
       </div>
     </footer> 
   </main>
