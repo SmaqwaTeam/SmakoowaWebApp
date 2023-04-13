@@ -2,7 +2,10 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 import router from './router/index.js'
+import axios from 'axios'
 import { createPinia } from 'pinia'
 
 const pinia = createPinia()
-createApp(App).use(router).use(pinia).mount('#app')
+const app = createApp(App)
+app.config.globalProperties.axios=axios;
+app.use(router).use(pinia).mount('#app')

@@ -10,7 +10,7 @@
       </label>
     </div>
     <div class="md:w-2/3">
-      <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="Your login">
+      <input v-model="login" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text">
     </div>
   </div>
   <div class="md:flex md:items-center mb-6">
@@ -20,7 +20,7 @@
       </label>
     </div>
     <div class="md:w-2/3">
-      <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="password" placeholder="***** ***">
+      <input v-model="password" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="password" placeholder="***** ***">
     </div>
   </div>
   <div class="md:flex md:items-center">
@@ -35,10 +35,28 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'pinia';
+import {useUserStore} from "../stores/UserStore"
+
 export default {
     data(){
         return{
-            aaa:false
+            login: null,
+            password: null,
+        }
+    },
+    methods:{
+        ...mapActions(useUserStore, {
+        logUser: "loginUser"
+    }),
+        loginUser(){
+            const payload = {login: this.login,  password: this.password }
+            try{
+                this.logUser(payload)
+            }catch(error){
+      console.log(error)
+      }
+            
         }
     }
 }
