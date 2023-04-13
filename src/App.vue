@@ -1,7 +1,7 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue';
 import {useRecipesStore} from "./stores/RecipesStore";
-
+import { useUserStore } from './stores/UserStore';
 import { mapState } from 'pinia';
 export default {
   data() {
