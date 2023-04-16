@@ -4,8 +4,7 @@ export const useUserStore = defineStore("RecipeStore", {
     state: () => {
         return {
             user: {
-                login: "XDDDDD",
-            email: "abc@xyz.com",
+                login: "",
             id: 1,
             isLogged:false,
             userRecipes: [],
@@ -16,33 +15,33 @@ export const useUserStore = defineStore("RecipeStore", {
     },
     actions: {
        async registerUser(payload){
-            /*const username = payload.username;
+            const username = payload.userlogin;
             const useremail = payload.useremail;
             const userpassword = payload.userpassword;
-            const res = await fetch(
-                import.meta.env.VITE_API_BACKEND+"/api/Account/Register",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                  },
-                  body: JSON.stringify({
-                    username,
-                    useremail,
-                    userpassword
-                  })
-                }
-            );
-            const data = await res.json();
-            console.log(data);
-            console.log(payload)*/
-            try {
-              const response = await axios.get('https://api.nbp.pl/api/exchangerates/tables/c/?format=json');
-              console.log(response)
-            } catch (error) {
+            try{
+                        const res = await fetch(
+                          import.meta.env.VITE_API_BACKEND+"/api/Account/Register",
+                            {
+                              method: "POST",
+                              headers: {
+                                'Content-Type': 'application/json',
+                                'accept': 'text/plain'
+                              },
+                              body:JSON.stringify({
+                                "UserName":username,
+                                "email":useremail,
+                                "password":userpassword
+                              })
+                            }
+                        );
+                        const data = await res.json();
+        console.log(data)
+
+            }catch(error)
+            {
               console.log(error)
-            }    
+            }
+          
         },
         async loginUser(payload){
             const login = payload.login
@@ -56,14 +55,42 @@ export const useUserStore = defineStore("RecipeStore", {
                     "Access-Control-Allow-Origin": "*"
                   },
                   body: JSON.stringify({
-                    login,
-                    password,
+                    "UserName":login,
+                                "password":password
                   })
                 }
             );
             const data = await res.json();
             console.log(data);
-            console.log(payload)
+           let id = data.content.user.id
+            let usertoken =data.content.token;
+            let userlogin = data.content.user.username;
+            this.user.login = userlogin
+            this.user.id = id;
+            localStorage.setItem("userToken",usertoken);
+            localStorage.setItem("userId",id);
+            localStorage.setItem("userLogin",userlogin);
+            console.log("user login");
+            this.user.isLogged = true;
+            this.$router.push('/profile')
+      
+        },
+        logoutUser(){
+          localStorage.clear();
+        this.user.login = ""
+        this.user.id = ""
+        this.user.isLogged = false;
+          console.log("Log out");
+          
+
+        },
+        checkIfUserIsLogged(){
+          if(localStorage.getItem("userLogin"))
+          {
+            this.user.login = localStorage.getItem("userLogin");
+            this.user.id = localStorage.getItem("userId"); 
+            this.user.isLogged = true
+          }
         }    
     }
 })

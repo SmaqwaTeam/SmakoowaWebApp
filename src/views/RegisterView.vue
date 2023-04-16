@@ -1,3 +1,34 @@
+<script>
+import { mapActions } from 'pinia';
+import {useUserStore} from "../stores/UserStore"
+export default {
+    data(){
+        return{
+            login: null,
+            email: null,
+            password: null,
+            confpassword: null, 
+        }
+    },
+    methods:{
+        ...mapActions(useUserStore, {
+        regUser: "registerUser"
+    }),
+        registerUser(){
+            if(this.password == this.confpassword)
+            {
+            const payload = {userlogin: this.login, useremail: this.email, userpassword: this.password }
+            this.regUser(payload)
+            }
+            else
+            {
+                alert("Passwords are not equal. Try again")
+            }
+        }
+    }
+    
+}
+</script>
 <template>
   
     <div class="container mx-auto py-4">
@@ -54,34 +85,3 @@
 </form>
     </div>
 </template>
-<script>
-import { mapActions } from 'pinia';
-import {useUserStore} from "../stores/UserStore"
-export default {
-    data(){
-        return{
-            login: null,
-            email: null,
-            password: null,
-            confpassword: null, 
-        }
-    },
-    methods:{
-        ...mapActions(useUserStore, {
-        regUser: "registerUser"
-    }),
-        registerUser(){
-            if(this.password == this.confpassword)
-            {
-            const payload = {userlogin: this.login, useremail: this.email, userpassword: this.password }
-            this.regUser(payload)
-            }
-            else
-            {
-                alert("Passwords are not equal. Try again")
-            }
-        }
-    }
-    
-}
-</script>

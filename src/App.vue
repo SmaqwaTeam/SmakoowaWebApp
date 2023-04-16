@@ -1,14 +1,15 @@
 <script>
-import HelloWorld from './components/HelloWorld.vue';
 import {useRecipesStore} from "./stores/RecipesStore";
 import { useUserStore } from './stores/UserStore';
 import { mapState } from 'pinia';
+import { mapActions } from 'pinia';
 export default {
   data() {
     return{
       isMenuVisible: true
     }
   },
+  
   computed: {
     ...mapState(useRecipesStore,{
       test: "test"
@@ -18,7 +19,14 @@ export default {
     })
 
   },
+  created(){
+    this.checkIfUserIsLogged();  
+  },
   methods: {
+    ...mapActions(useUserStore, {
+        logout: "logout",
+        checkIfUserIsLogged: "checkIfUserIsLogged"
+    }),
     toggleMenu(){
       this.isMenuVisible = !this.isMenuVisible
     },
@@ -30,6 +38,9 @@ export default {
     },
     goToProfile(){
       this.$router.push('/profile')
+    },
+    logout(){
+      this.$router.push('/logout')
     }
   }
 }
@@ -69,6 +80,9 @@ export default {
             </li>
             <li>
               <router-link to="/about" href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-white-700 md:p-0 md:dark:hover:text-white-500 dark:text-white dark:hover:bg-orange-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About Us</router-link>
+            </li>
+            <li>
+              <button  @click="logout" href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-white-700 md:p-0 md:dark:hover:text-white-500 dark:text-white dark:hover:bg-orange-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Logout</button>
             </li>
           </ul>
         </div>
