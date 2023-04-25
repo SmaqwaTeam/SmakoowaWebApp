@@ -1,8 +1,31 @@
 <script>
+import { computed } from 'vue';
 import RecipeCard from '../components/RecipeCard.vue';
+import { useRecipesStore } from '../stores/RecipesStore';
+import { mapState,mapActions } from 'pinia';
 export default {
+    name: 'Home',
     components: {
         RecipeCard
+    },
+    data(){
+        return{
+            allrecipes: null 
+        }
+    },
+    computed:
+    {
+        ...mapState(useRecipesStore,{
+      recipes: "recipes"
+    })
+    },
+    methods:{
+        ...mapActions(useRecipesStore, {
+        getAllRecipes: "getAllRecipes",
+    }),
+    },
+    created(){
+        this.getAllRecipes()
     }
 }
 </script>
@@ -10,23 +33,8 @@ export default {
 
 <template>
     <div class="container gap-5 flex flex-wrap justify-between items-center mx-auto">
-        <div class="flex">
-            <RecipeCard></RecipeCard>
-        </div>
-        <div class="flex">
-            <RecipeCard></RecipeCard>
-        </div>
-        <div class="flex">
-            <RecipeCard></RecipeCard>
-        </div>
-        <div class="flex">
-            <RecipeCard></RecipeCard>
-        </div>
-        <div class="flex">
-            <RecipeCard></RecipeCard>
-        </div>
-        <div class="flex">
-            <RecipeCard></RecipeCard>
+        <div class="flex" v-for="rec in recipes.allrecipes">
+            <RecipeCard :alldata="rec"></RecipeCard>
         </div>
 
         
