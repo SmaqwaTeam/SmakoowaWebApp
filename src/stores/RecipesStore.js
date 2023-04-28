@@ -6,12 +6,34 @@ export const useRecipesStore = defineStore("RecipeStore", {
         return {
             recipes: {
                 categories: [],
-                tags: []
+                tags: [],
+                allrecipes: [],
             }
             
         }
     },
+    getters: {
+        getCategoryNameById: (state) => {
+            return (catId) => state.recipes.categories.find((category) => category.id === catId)
+        }
+    },
     actions: {
+        async getRecipeById(id){
+            try{
+                const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Recipes/GetByIdDetailed/"+id)
+                return res.data.content
+            }catch(error){
+                console.log(error)
+            }
+        },
+        async getAllRecipes(){
+            try{
+                const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Recipes/GetAll")
+                this.recipes.allrecipes = res.data.content
+            }catch(error){
+                console.log(error)
+               }
+        },
         async getCategories() {
           try{
             const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Categories/GetAll")
@@ -62,6 +84,7 @@ export const useRecipesStore = defineStore("RecipeStore", {
                       }
                   );
                   const data = await res.json();
+                  console.log(data)
                 if(data.successStatus)
                 {
                     console.log(data.message)

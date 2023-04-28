@@ -7,6 +7,7 @@ import RegisterView from '../views/RegisterView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import AddNewRecipeView from '../views/AddNewRecipeView.vue'
 import LogOutView from '../views/LogOutView.vue'
+import RecipeView from '../views/RecipeView.vue'
 const routes = [
         {path: '/', name:'Home', component:Home},
         {path:'/about', name:'About', component: About},
@@ -14,7 +15,18 @@ const routes = [
         {path: '/register', name:'Register', component:RegisterView},
         {path:  '/profile', name:'Profile ', component:ProfileView},
         {path: '/addrecipe', name:'AddRecipe', component:AddNewRecipeView},
-        {path: '/logout', name:'Logout', component:LogOutView}
+        {path: '/logout', name:'Logout', component:LogOutView},
+        {path: '/recipe', name:'Recipe',redirect: '/recipe/1', component:RecipeView,
+        children: [
+            {
+                path: ':recipeid',
+                name: 'recipeById',
+                component: RecipeView,
+                props: route=> ({ id: parseInt(route.params.recipeid) }),
+        }
+        ]
+        },
+
 
 ]
 const router = createRouter({
