@@ -30,6 +30,8 @@ export const useRecipesStore = defineStore("RecipeStore", {
             try{
                 const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Recipes/GetAll")
                 this.recipes.allrecipes = res.data.content
+                console.log(this.recipes.allrecipes)
+                
             }catch(error){
                 console.log(error)
                }
@@ -74,10 +76,10 @@ export const useRecipesStore = defineStore("RecipeStore", {
                         body:JSON.stringify({
                           "name":payload.name,
                           "description":payload.description,
-                          "servingsTier":payload.servingsTier,
-                          "timeToMakeTier":payload.timeToMakeTier,
+                          "servingsTier":parseInt( payload.servingsTier),
+                          "timeToMakeTier":parseInt(payload.timeToMakeTier),
                           "categoryId": payload.categoryId,
-                          "tagsIds":payload.tagsIds,
+                          "tagIds":payload.tagIds,
                           "ingredients":payload.ingredients,
                           "instructions":payload.instructions,
                         })
