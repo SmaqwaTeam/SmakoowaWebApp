@@ -33,9 +33,6 @@ export default {
             this.$router.push('recipe/'+id)
         }
     },
-    created(){
-        //console.log(this.$data)
-    },
     data(){
         return{
             id: this.alldata.id,

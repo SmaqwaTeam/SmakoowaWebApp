@@ -30,8 +30,6 @@ export const useRecipesStore = defineStore("RecipeStore", {
             try{
                 const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Recipes/GetAll")
                 this.recipes.allrecipes = res.data.content
-                console.log(this.recipes.allrecipes)
-                
             }catch(error){
                 console.log(error)
                }
