@@ -74,10 +74,10 @@ export const useRecipesStore = defineStore("RecipeStore", {
                         body:JSON.stringify({
                           "name":payload.name,
                           "description":payload.description,
-                          "servingsTier":payload.servingsTier,
-                          "timeToMakeTier":payload.timeToMakeTier,
+                          "servingsTier":parseInt( payload.servingsTier),
+                          "timeToMakeTier":parseInt(payload.timeToMakeTier),
                           "categoryId": payload.categoryId,
-                          "tagsIds":payload.tagsIds,
+                          "tagIds":payload.tagIds,
                           "ingredients":payload.ingredients,
                           "instructions":payload.instructions,
                         })

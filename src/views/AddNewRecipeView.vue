@@ -103,13 +103,9 @@ export default {
     
   },
   created(){
-  this.getCat();
-  this.getTags();
 },
 methods: {
   ...mapActions(useRecipesStore, {
-    getCat: "getCategories",
-    getTags: "getTags",
     submitRecipe: "submitRecipe"
   }),
   getInstructions(inst){
@@ -119,7 +115,10 @@ methods: {
     this.ingredients= ings
   },
   submitForm(){
-    const payload = {name: this.title, description: this.description, servingsTier: this.servings, timeToMakeTier: this.timetomake, categoryId:this.category, tagIds:this.tags,ingredients:this.ingredients,instructions:this.instructions}
+    const tags = Object.values(this.tags)
+    console.log(tags)
+    const payload = {name: this.title, description: this.description, servingsTier: this.servings, timeToMakeTier: this.timetomake, categoryId:this.category, tagIds:tags,ingredients:this.ingredients,instructions:this.instructions}
+    
     this.submitRecipe(payload)
   }
 },

@@ -33,11 +33,8 @@ export default {
 
 <template>
     <div class="container gap-5 flex flex-wrap justify-between items-center mx-auto">
-        <div class="flex" v-for="rec in recipes.allrecipes">
-            <RecipeCard :alldata="rec"></RecipeCard>
+        <div class="flex" v-if="recipes.allrecipes" v-for="rec in recipes.allrecipes">
+            <RecipeCard  :alldata="rec"></RecipeCard>
         </div>
-
-        
-
     </div>
 </template>
