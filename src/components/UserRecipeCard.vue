@@ -1,0 +1,43 @@
+<template>
+    <div class="flex items-center w-full max-w-xs p-4 bg-orange-300">
+        <div class="flex-shrink-0">
+            <img class="w-8 h-8 rounded-full" src="../assets/butterchicken.jpg" alt="Recipe Image">
+        </div>
+        <div class="flex items-center ml-auto space-x-2">
+            <p class="text-sm font-medium text-white p-1.5 rounded-lg">{{ title }}</p>
+            <p class="text-sm font-small text-black p-1.5 rounded-lg"> {{getCategoryNameById(categoryId).name}}</p>
+            <button type="button" @click="pushToPage(id)" class="bg-orange text-orange-500 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8">Visit</button>
+        </div>    
+    </div>
+</template>
+<script>
+import { mapState } from 'pinia';
+import { useRecipesStore } from '../stores/RecipesStore';
+export default {
+    name:'RecipeCard',
+    props: {
+        alldata: Object, 
+    },
+    computed: {
+        ...mapState(useRecipesStore, {
+            getCategoryNameById: "getCategoryNameById"
+        })
+    },
+    methods:{
+        pushToPage(id)
+        {
+            this.$router.push('recipe/'+id)
+        }
+    },
+    data(){
+        return{
+            id: this.alldata.id,
+            title: this.alldata.name,
+            description: this.alldata.description,
+            categoryId: this.alldata.categoryId,
+            tagIds: this.alldata.tagIds,
+            imagesrc: null,
+        }
+    },
+}
+</script>

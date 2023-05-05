@@ -91,6 +91,25 @@ export const useUserStore = defineStore("UserStore", {
             this.user.id = localStorage.getItem("userId"); 
             this.user.isLogged = true
           }
-        }    
+        },
+        async getUserRecipes(){
+          try{
+              const res = await fetch(
+                  import.meta.env.VITE_API_BACKEND+"/api/Recipes/GetCurrentUsersRecipes",
+                    {
+                      method: "GET",
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'accept': 'text/plain',
+                        'Authorization': 'Bearer '+localStorage.getItem('userToken')
+                      }
+                    }
+                );
+                const data = await res.json();
+                this.user.userRecipes = data.content 
+          }catch(error){
+              console.log(error)
+          }
+      },    
     }
 })
