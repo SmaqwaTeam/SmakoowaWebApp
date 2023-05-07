@@ -1,10 +1,10 @@
 <template>
 <div class="flex flex-row gap-5 p-3 border-2 rounded-lg border-orange-500 w-full items-center my-3" v-for="ing in ingredientsList">
     <div class="flex-auto w-1/6 ">
-       Recipe {{ ing.ingredientId }}  
+       Recipe {{ ing.position }}  
     </div>
     <div class="flex-auto w-1/2 ">
-      {{ ing.ingredient }}
+      {{ ing.name }}
     </div>
     <div class="flex justify-center items-center h-full">
         <button type="button" class="rounded-lg py-2 px-4 bg-orange-500" @click="deleteingredient(ing.ingredientId)">X</button>
@@ -40,18 +40,15 @@ export default {
     },
     methods:{
         sendToParrent(){
-            this.$emit("ingredientsdata",this.allingredientsEmit)
+            this.$emit("ingredientsdata",this.ingredientsList)
         },
         addingredient(){
-            this.ingredientsList.forEach(element => {
-                this.allingredientsEmit.push({name:element.ingredient,position:element.ingredientId,group:this.ingredientGroupId})
-            }) 
-            this.ingredientsList.push({ingredient: this.ingredient, ingredientId:this.ingredientId++ })
+            this.ingredientsList.push({name: this.ingredient, position:this.ingredientId++,group:this.ingredientGroupId })
             this.ingredient =""
             let inglength = this.ingredientsList.length
             for(let i=1; i<=inglength; i++)
             {
-                this.ingredientsList[i-1].ingredientId= i
+                this.ingredientsList[i-1].position= i
             }
         },
         deleteingredient(id){
@@ -61,17 +58,7 @@ export default {
             let inglength = this.ingredientsList.length
             for(let i=1; i<=inglength; i++)
             {
-                this.ingredientsList[i-1].ingredientId= i
-            }
-        },
-        deleteingredientGroup(id){
-            this.allingredients = this.allingredients.filter(t => {
-                return t.ingredientGroupId !== id
-            })
-            let inggrlength = this.allingredients.length
-            for(let i=1; i<=inggrlength; i++)
-            {
-                this.allingredients[i-1].ingredientGroupId= i
+                this.ingredientsList[i-1].position= i
             }
         },
     }    
