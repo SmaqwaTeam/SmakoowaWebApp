@@ -6,7 +6,8 @@
         <div class="flex items-center ml-auto space-x-2">
             <p class="text-sm font-medium text-white p-1.5 rounded-lg">{{ title }}</p>
             <p class="text-sm font-small text-black p-1.5 rounded-lg"> {{getCategoryNameById(categoryId).name}}</p>
-            <button type="button" @click="pushToPage(id)" class="bg-orange text-orange-500 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8">Visit</button>
+            <button type="button" @click="pushToPage(id)" class="bg-orange-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 h-8">Visit</button>
+            <button type="button" @click="editPage(id)" class="bg-orange-500 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 h-8">Edit</button>
         </div>    
     </div>
 </template>
@@ -27,6 +28,10 @@ export default {
         pushToPage(id)
         {
             this.$router.push('recipe/'+id)
+        },
+        editPage(id)
+        {
+            this.$router.push('editrecipe/'+id)
         }
     },
     data(){

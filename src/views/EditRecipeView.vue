@@ -1,8 +1,8 @@
 <template>
-    <div class="container mx-auto py-4">
+    <div class="container mx-auto py-4" v-if="isLoaded">
         <h1 class="text-2xl text-center">Add a new recipe</h1>
         <form class="px-4">
-          <div class="md:flex md:items-center mb-6">
+  <div class="md:flex md:items-center mb-6">
     <div class="md:w-1/3">
       <label class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4" for="inline-password">
         Title
@@ -65,7 +65,7 @@
       <label for="categories" class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4">Ingredients </label>
     </div>
       <div class="md:w-2/3">
-        <IngredientsForm @ingredientsdata="getIngredients"></IngredientsForm>
+        <IngredientsForm @ingredientsdata="getIngredients" :propingredients="recipe.ingredients"></IngredientsForm>
       </div>
   </div>
   <div class="md:flex md:items-center mb-6">
@@ -73,16 +73,15 @@
       <label for="categories" class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4">Recipe Instructions </label>
     </div>
       <div class="md:w-2/3">
-        <InstructionsForm @instructionsdata="getInstructions"></InstructionsForm>
+        <InstructionsForm @instructionsdata="getInstructions" :propinstructions="recipe.instructions"></InstructionsForm>
       </div>
   </div> 
-      
   
   <div class="md:flex md:items-center">
     <div class="md:w-1/3"></div>
     <div class="md:w-2/3">
-      <button @click="submitForm" class="shadow bg-orange-500 hover:bg-orange-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-        Add it
+      <button @click="editForm" class="shadow bg-orange-500 hover:bg-orange-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
+        Edit this recipe
       </button>
     </div>
   </div>
@@ -97,14 +96,15 @@ import InstructionsForm from '../components/InstructionsForm.vue';
 export default {
   data(){
     return{
-      title:null,
+        title:null,
       description:null,
       category: null,
       tags:[],
       timetomake: 2,
       servings:3,
-      instructions: null,
-      ingredients:null,
+      recipe: null,
+      recipeid: this.$route.params.editrecipeid,
+      isLoaded: false,
     }
     
   },
@@ -118,11 +118,25 @@ export default {
     })
     
   },
-  created(){
-},
+  async created(){
+       this.recipe =  await this.getRecipeById(this.recipeid)
+       console.log(this.recipe)
+       if(this.recipe)
+       {
+        this.isLoaded = true
+        this.title = this.recipe.name
+       this.description = this.recipe.description
+       this.category =  this.recipe.categoryId
+       this.tags = this.recipe.tagIds
+       this.timetomake = this.recipe.timeToMakeTier
+       this.servings = this.recipe.servingsTier
+       }
+       
+    },
 methods: {
   ...mapActions(useRecipesStore, {
-    submitRecipe: "submitRecipe"
+    editRecipe: "editRecipe",
+    getRecipeById: "getRecipeById"
   }),
   getInstructions(inst){
     this.instructions= inst
@@ -130,12 +144,10 @@ methods: {
   getIngredients(ings){
     this.ingredients= ings
   },
-  submitForm(){
+  editForm(){
     const tags = Object.values(this.tags)
-    console.log(tags)
-    const payload = {name: this.title, description: this.description, servingsTier: this.servings, timeToMakeTier: this.timetomake, categoryId:this.category, tagIds:tags,ingredients:this.ingredients,instructions:this.instructions}
-    
-    this.submitRecipe(payload)
+    const payload = {recipeid: this.recipeid,name: this.title, description: this.description, servingsTier: this.servings, timeToMakeTier: this.timetomake, categoryId:this.category, tagIds:tags,ingredients:this.ingredients,instructions:this.instructions}
+    this.editRecipe(payload)
   }
 },
 

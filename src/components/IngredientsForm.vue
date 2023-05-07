@@ -7,7 +7,7 @@
       {{ ing.name }}
     </div>
     <div class="flex justify-center items-center h-full">
-        <button type="button" class="rounded-lg py-2 px-4 bg-orange-500" @click="deleteingredient(ing.ingredientId)">X</button>
+        <button type="button" class="rounded-lg py-2 px-4 bg-orange-500" @click="deleteingredient(ing.position)">X</button>
     </div> 
     
 </div>    
@@ -30,13 +30,20 @@ export default {
             ingredientId:1,
             ingredientGroupId:1,
             ingredientsList:[],
-            allingredients:[],
-            allingredientsEmit:[],
         }
+    },
+    props: {
+        propingredients: Array 
     },
     emits: ["ingredientsdata"],
     mounted(){
         this.sendToParrent();
+    },
+    created(){
+        if(this.propingredients != null)
+        {
+            this.ingredientsList = this.propingredients
+        }
     },
     methods:{
         sendToParrent(){
@@ -53,7 +60,7 @@ export default {
         },
         deleteingredient(id){
             this.ingredientsList = this.ingredientsList.filter(t => {
-                return t.ingredientId !== id
+                return t.position !== id
             })
             let inglength = this.ingredientsList.length
             for(let i=1; i<=inglength; i++)

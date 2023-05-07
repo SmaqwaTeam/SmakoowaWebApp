@@ -7,7 +7,7 @@
             <p class="text-2xl text-center">
                 Your Recipes 
             </p>
-            <div class="flex flex-wrap gap-5 " >
+            <div class="flex flex-4 items-center flex-wrap flex-row gap-5 " >
                 <div v-if="user.userRecipes" v-for="rec in user.userRecipes">
                 <UserRecipeCard :alldata="rec"> </UserRecipeCard>
                 </div>    

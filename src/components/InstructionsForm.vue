@@ -34,9 +34,18 @@ export default {
             instructionsList:[],
         }
     },
+    props: {
+        propinstructions: Array
+    },
     emits: ["instructionsdata"],
     mounted(){
         this.sendToParrent()
+    },
+    created(){
+        if(this.propinstructions != null )
+        {
+            this.instructionsList = this.propinstructions
+        }
     },
     methods:{
         addInstruction(){

@@ -8,6 +8,7 @@ import ProfileView from '../views/ProfileView.vue'
 import AddNewRecipeView from '../views/AddNewRecipeView.vue'
 import LogOutView from '../views/LogOutView.vue'
 import RecipeView from '../views/RecipeView.vue'
+import EditRecipeView from '../views/EditRecipeView.vue'
 const routes = [
         {path: '/', name:'Home', component:Home},
         {path:'/about', name:'About', component: About},
@@ -26,7 +27,16 @@ const routes = [
         }
         ]
         },
-
+        {path: '/editrecipe', name:'EditRecipe', component:EditRecipeView,
+        children: [
+            {
+                path: ':editrecipeid',
+                name: 'editrecipeById',
+                component: EditRecipeView,
+                props: route=> ({ id: parseInt(route.params.editrecipeid) }),
+        }
+        ]
+        },
 
 ]
 const router = createRouter({
