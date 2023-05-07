@@ -1,20 +1,24 @@
 <template>
-    <div class=" flex flex-col border-1 bg-slate-400 my-2" v-for="inggroup in allingredients">
-        <p> Group {{ inggroup.ingredientGroupId }} 
-        <button type="button " @click="deleteingredientGroup(inggroup.ingredientGroupId)"> DELETE GROUP</button>
-        </p>
-        <div class="bg-slate-200" v-for="ing in inggroup.ingredientGroup">
-            {{ ing.ingredient }}
-        </div>
+<div class="flex flex-row gap-5 p-3 border-2 rounded-lg border-orange-500 w-full items-center my-3" v-for="ing in ingredientsList">
+    <div class="flex-auto w-1/6 ">
+       Recipe {{ ing.ingredientId }}  
     </div>
-<div class="inline-block bg-orange-300 w-full" v-for="ing in ingredientsList">
-    {{ ing.ingredient }} {{ ing.ingredientId }}
-    <button type="button" @click="deleteingredient(ing.ingredientId)">X</button>
+    <div class="flex-auto w-1/2 ">
+      {{ ing.ingredient }}
+    </div>
+    <div class="flex justify-center items-center h-full">
+        <button type="button" class="rounded-lg py-2 px-4 bg-orange-500" @click="deleteingredient(ing.ingredientId)">X</button>
+    </div> 
+    
 </div>    
-<div>
-    <input type="text" v-model="ingredient" placeholder="Add another ingredient">
-    <button type="button" @click="addingredient" class="bg-orange-400" > Add</button>
-    <button type="button" @click="addingredientgroup" class="bg-orange-700"> Add group</button>
+<div class="flex flex-row my-5 gap-2 items-center">
+    <div class="flex-auto w-1/2 border-2  border-orange-300 ">
+        <input class="w-full border-orange-400 focus:border-orange-500 outline-none" type="text" v-model="ingredient" placeholder="Add another ingredient">
+    </div>
+    <div class=" flex-auto">
+        <button  type="button" @click="addingredient" class=" rounded-lg  p-2 bg-orange-400" > Add</button>
+    </div>
+    
 </div>
 </template>
 <script>
@@ -39,6 +43,9 @@ export default {
             this.$emit("ingredientsdata",this.allingredientsEmit)
         },
         addingredient(){
+            this.ingredientsList.forEach(element => {
+                this.allingredientsEmit.push({name:element.ingredient,position:element.ingredientId,group:this.ingredientGroupId})
+            }) 
             this.ingredientsList.push({ingredient: this.ingredient, ingredientId:this.ingredientId++ })
             this.ingredient =""
             let inglength = this.ingredientsList.length
@@ -67,17 +74,6 @@ export default {
                 this.allingredients[i-1].ingredientGroupId= i
             }
         },
-        addingredientgroup(){
-            this.ingredientsList.forEach(element => {
-                this.allingredientsEmit.push({name:element.ingredient,position:element.ingredientId,group:this.ingredientGroupId})
-            }) 
-            this.allingredients.push({ingredientGroup:this.ingredientsList,ingredientGroupId:this.ingredientGroupId++})
-            
-            this.ingredientsList = []
-            this.ingredientId = 1
-        }
-
-
     }    
 }
 </script>

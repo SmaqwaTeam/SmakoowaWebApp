@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center w-full max-w-xs p-4 bg-orange-300">
         <div class="flex-shrink-0">
-            <img class="w-8 h-8 rounded-full" src="../assets/butterchicken.jpg" alt="Recipe Image">
+            <img class="w-8 h-8 rounded-full" src="../assets/mealicon.jpg" alt="Recipe Image">
         </div>
         <div class="flex items-center ml-auto space-x-2">
             <p class="text-sm font-medium text-white p-1.5 rounded-lg">{{ title }}</p>

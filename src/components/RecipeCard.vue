@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-200">
     <a href="#">
-        <img class="rounded-t-lg" src="../assets/butterchicken.jpg" alt="butterchicken" />
+        <img class="rounded-t-lg" src="../assets/mealicon.jpg" alt="mealicon" />
     </a>
     <div class="p-5">
          <h5 class="mb-2 text-2xl font-bold tracking-tight text-orange-600 ">{{title}} </h5>
