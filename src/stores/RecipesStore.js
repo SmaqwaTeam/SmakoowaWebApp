@@ -98,5 +98,37 @@ export const useRecipesStore = defineStore("RecipeStore", {
                 console.log(error)
             }
         },
+        async uploadImage(payload){
+            let formData = new FormData();
+      formData.append('file', payload.file);
+            try{
+                const res = await fetch(
+                    import.meta.env.VITE_API_BACKEND+"/api/Images/AddImageToRecipe/"+payload.id,
+                      {
+                        method: "POST",
+                        headers: {
+                          'Content-Type': 'multipart/form-data',
+                          'accept': 'text/plain',
+                          'Authorization': 'Bearer '+localStorage.getItem('userToken')
+                        },
+                        body: formData
+                      }
+                  );
+                  const data = await res.json();
+                  console.log(data)
+                if(data.successStatus)
+                {
+                    console.log(data.message)
+                    this.$router.push('/profile')
+                }
+                else
+                {
+                    alert(data.message)
+                }
+            }catch(error){
+                console.log(error)
+            }
+
+        }
     }
 })
