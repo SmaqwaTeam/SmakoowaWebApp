@@ -1,7 +1,7 @@
 <template>
     <div class="container mx-auto py-4" v-if="isLoaded">
         <h1 class="text-2xl text-center">Add a new recipe</h1>
-        <form class="px-4">
+        <form class="px-4"  enctype="multipart/form-data">
   <div class="md:flex md:items-center mb-6">
     <div class="md:w-1/3">
       <label class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4" for="inline-password">
@@ -76,7 +76,14 @@
         <InstructionsForm @instructionsdata="getInstructions" :propinstructions="recipe.instructions"></InstructionsForm>
       </div>
   </div> 
-  
+  <div class="md:flex md:items-center mb-6">
+    <div class="md:w-1/3">
+      <label for="categories" class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4">Image Upload</label>
+    </div>
+      <div class="md:w-2/3">
+        <input type="file" @change="uploadFile" ref="file">
+      </div>
+  </div> 
   <div class="md:flex md:items-center">
     <div class="md:w-1/3"></div>
     <div class="md:w-2/3">
@@ -105,6 +112,7 @@ export default {
       recipe: null,
       recipeid: this.$route.params.editrecipeid,
       isLoaded: false,
+      file: ''
     }
     
   },
@@ -134,7 +142,11 @@ export default {
        
     },
 methods: {
+  uploadFile() {
+        this.file = this.$refs.file.files[0];
+      },
   ...mapActions(useRecipesStore, {
+    uploadImage: "uploadImage",
     editRecipe: "editRecipe",
     getRecipeById: "getRecipeById"
   }),
@@ -148,6 +160,12 @@ methods: {
     const tags = Object.values(this.tags)
     const payload = {recipeid: this.recipeid,name: this.title, description: this.description, servingsTier: this.servings, timeToMakeTier: this.timetomake, categoryId:this.category, tagIds:tags,ingredients:this.ingredients,instructions:this.instructions}
     this.editRecipe(payload)
+    if(this.file != null)
+    {
+      console.log("aeaseaseae")
+      const payload = {file: this.file, recipeid:this.recipeid}
+      this.uploadImage(payload)
+    }
   }
 },
 

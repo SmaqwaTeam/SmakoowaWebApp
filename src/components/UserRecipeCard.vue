@@ -1,7 +1,8 @@
 <template>
     <div class="flex items-center w-full max-w-xs p-4 bg-orange-300">
         <div class="flex-shrink-0">
-            <img class="w-8 h-8 rounded-full" src="../assets/mealicon.jpg" alt="Recipe Image">
+            <img v-if="imagesrc" class="w-8 h-8 rounded-full" :src="getimagesrc" alt="Recipe Image">
+            <img v-else class="w-8 h-8 rounded-full" src="../assets/mealicon.jpg" alt="Default Recipe Image">
         </div>
         <div class="flex items-center ml-auto space-x-2">
             <p class="text-sm font-medium text-white p-1.5 rounded-lg">{{ title }}</p>
@@ -22,11 +23,23 @@ export default {
     computed: {
         ...mapState(useRecipesStore, {
             getCategoryNameById: "getCategoryNameById"
-        })
+        }),
+        getimagesrc()
+        {
+            if(this.imagesrc)
+            {
+               return import.meta.env.VITE_API_BACKEND+"/api/Images/GetRecipeImage/"+this.imagesrc 
+            }
+           else
+           {
+            return "../assets/mealicon.jpg"
+           }
+        }
     },
     methods:{
         pushToPage(id)
         {
+            console.log(this.getimagesrc)
             this.$router.push('recipe/'+id)
         },
         editPage(id)
@@ -41,7 +54,7 @@ export default {
             description: this.alldata.description,
             categoryId: this.alldata.categoryId,
             tagIds: this.alldata.tagIds,
-            imagesrc: null,
+            imagesrc: this.alldata.imageId,
         }
     },
 }
