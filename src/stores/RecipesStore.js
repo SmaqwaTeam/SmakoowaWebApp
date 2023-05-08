@@ -138,19 +138,21 @@ export const useRecipesStore = defineStore("RecipeStore", {
             }
         },
         async uploadImage(payload){
+            console.log(payload)
             let formData = new FormData();
-      formData.append('file', payload.file);
+      formData.append('image', payload.file);
+      formData.append('type',payload.file.type)
             try{
                 const res = await fetch(
-                    import.meta.env.VITE_API_BACKEND+"/api/Images/AddImageToRecipe/"+payload.id,
+                    import.meta.env.VITE_API_BACKEND+"/api/Images/AddImageToRecipe/"+payload.recipeid,
                       {
                         method: "POST",
                         headers: {
-                          'Content-Type': 'multipart/form-data',
                           'accept': 'text/plain',
                           'Authorization': 'Bearer '+localStorage.getItem('userToken')
                         },
                         body: formData
+                        
                       }
                   );
                   const data = await res.json();
@@ -168,6 +170,15 @@ export const useRecipesStore = defineStore("RecipeStore", {
                 console.log(error)
             }
 
+        },
+        async getImage(imageID){
+            try{
+                const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Images/GetRecipeImage/"+imageID)
+                let image = res.data
+                console.log(image)
+            }catch(error){
+                console.log(error)
+               }
         }
     }
 })
