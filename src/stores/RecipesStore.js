@@ -179,6 +179,16 @@ export const useRecipesStore = defineStore("RecipeStore", {
             }catch(error){
                 console.log(error)
                }
+        },
+        async searchRecipe(keyword){
+            try{
+                const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Recipes/SearchRecipesByName?querry="+keyword)
+                let data= res.data.content
+                console.log(data)
+                return data
+            }catch(error){
+                console.log(error)
+               }
         }
     }
 })

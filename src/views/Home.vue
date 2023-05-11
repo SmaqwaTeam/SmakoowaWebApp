@@ -32,7 +32,7 @@ export default {
 
 
 <template>
-    <div class="container gap-5 flex flex-wrap justify-between items-center mx-auto">
+    <div class="container px-5 gap-5 flex flex-wrap justify-between items-center mx-auto">
         <div class="flex" v-if="recipes.allrecipes" v-for="rec in recipes.allrecipes">
             <RecipeCard  :alldata="rec"></RecipeCard>
         </div>

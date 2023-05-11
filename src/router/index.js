@@ -9,6 +9,7 @@ import AddNewRecipeView from '../views/AddNewRecipeView.vue'
 import LogOutView from '../views/LogOutView.vue'
 import RecipeView from '../views/RecipeView.vue'
 import EditRecipeView from '../views/EditRecipeView.vue'
+import SearchView from '../views/SearchView.vue'
 const routes = [
         {path: '/', name:'Home', component:Home},
         {path:'/about', name:'About', component: About},
@@ -17,6 +18,7 @@ const routes = [
         {path:  '/profile', name:'Profile ', component:ProfileView},
         {path: '/addrecipe', name:'AddRecipe', component:AddNewRecipeView},
         {path: '/logout', name:'Logout', component:LogOutView},
+        {path: '/search', name:'Search', component:SearchView},
         {path: '/recipe', name:'Recipe',redirect: '/recipe/1', component:RecipeView,
         children: [
             {
