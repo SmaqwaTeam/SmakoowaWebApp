@@ -189,6 +189,44 @@ export const useRecipesStore = defineStore("RecipeStore", {
             }catch(error){
                 console.log(error)
                }
-        }
+        },
+        async addLike(recipeId)
+        {
+            try{
+                const res = await fetch(
+                    import.meta.env.VITE_API_BACKEND+"/api/Likes/AddRecipeLike/"+recipeId,
+                      {
+                        method: "POST",
+                        headers: {
+                          'accept': 'text/plain',
+                          'Authorization': 'Bearer '+localStorage.getItem('userToken')
+                        },
+                      }
+                  );
+                  const data = await res.json();
+                  console.log(data)
+            }catch(error){
+                console.log(error)
+            }
+        },
+        async removeLike(recipeId)
+        {
+            try{
+                const res = await fetch(
+                    import.meta.env.VITE_API_BACKEND+"/api/Likes/RemoveRecipeLike/"+recipeId,
+                      {
+                        method: "DELETE",
+                        headers: {
+                          'accept': 'text/plain',
+                          'Authorization': 'Bearer '+localStorage.getItem('userToken')
+                        },
+                      }
+                  );
+                  const data = await res.json();
+                  console.log(data)
+            }catch(error){
+                console.log(error)
+            }
+        },
     }
 })

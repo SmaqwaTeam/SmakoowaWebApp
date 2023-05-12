@@ -9,6 +9,7 @@ export const useUserStore = defineStore("UserStore", {
             isLogged:false,
             userRecipes: [],
             userSubsribedTags: [],
+            userLikedRecipes: []
             }
                 
         }
@@ -110,6 +111,25 @@ export const useUserStore = defineStore("UserStore", {
           }catch(error){
               console.log(error)
           }
-      },    
+      },
+      async getLikedRecipes(){
+        try{
+            const res = await fetch(
+                import.meta.env.VITE_API_BACKEND+"/api/Recipes/GetLikedRecipies",
+                  {
+                    method: "GET",
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'accept': 'text/plain',
+                      'Authorization': 'Bearer '+localStorage.getItem('userToken')
+                    }
+                  }
+              );
+              const data = await res.json();
+              this.user.userLikedRecipes = data.content 
+        }catch(error){
+            console.log(error)
+        }
+    },    
     }
 })
