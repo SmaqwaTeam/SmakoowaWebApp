@@ -228,5 +228,25 @@ export const useRecipesStore = defineStore("RecipeStore", {
                 console.log(error)
             }
         },
+        async deleteRecipe(recipeId)
+        {
+            try{
+                const res = await fetch(
+                    import.meta.env.VITE_API_BACKEND+"/api/Recipes/Delete/"+recipeId,
+                      {
+                        method: "DELETE",
+                        headers: {
+                          'accept': 'text/plain',
+                          'Authorization': 'Bearer '+localStorage.getItem('userToken')
+                        },
+                      }
+                  );
+                  const data = await res.json();
+                  alert(data.message)
+                  return data
+            }catch(error){
+                console.log(error)
+            }
+        }
     }
 })
