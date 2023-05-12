@@ -7,6 +7,7 @@
 <script>
 import { HeartIcon } from "@heroicons/vue/24/solid";
 import { useRecipesStore } from "../stores/RecipesStore";
+import {useUserStore} from "../stores/UserStore";
 import { mapState,mapActions } from 'pinia';
 export default {
     name:'LikeButton',
@@ -14,10 +15,24 @@ export default {
     props: {
         recipeId: Number
     },
+    computed: {
+        ...mapState(useUserStore, {
+            user: "user"
+        })
+    },
     data: function() {
         return {
             value:false 
          };
+    },
+    created(){
+        if(this.user.isLogged)
+        {
+           if(this.user.userLikedRecipes.find(e => e.id === this.recipeId))
+           {
+            this.value = true
+           }
+        }
     },
     methods: {
         ...mapActions(useRecipesStore,{

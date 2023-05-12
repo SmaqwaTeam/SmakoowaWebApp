@@ -3,7 +3,7 @@
         <img v-if="imagesrc" class=" h-96 w-96 rounded-t-lg " :src="getimagesrc" alt="Recipe Image">
         <img v-else class=" rounded-t-lg" src="../assets/mealicon.jpg" alt="Default Recipe Image">
     <div class="p-5">
-        <LikeButton :recipeId="id" > </LikeButton>
+        <LikeButton v-if="user.isLogged" :recipeId="id" > </LikeButton>
          <h5 class="mb-2 text-2xl font-bold tracking-tight text-orange-600 ">{{title}} </h5>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ description }}</p>
         <p> Category: {{ getCategoryNameById(categoryId).name}} </p>
@@ -16,7 +16,8 @@
 </template>
 <script>
 import { mapState } from 'pinia';
-import { useRecipesStore } from '../stores/RecipesStore';
+import { useRecipesStore} from '../stores/RecipesStore';
+import { useUserStore} from '../stores/UserStore';
 import LikeButton from './LikeButton.vue';
 export default {
     name:'RecipeCard',
@@ -27,6 +28,9 @@ export default {
     computed: {
         ...mapState(useRecipesStore, {
             getCategoryNameById: "getCategoryNameById"
+        }),
+        ...mapState(useUserStore, {
+            user: "user"
         }),
         getimagesrc()
         {

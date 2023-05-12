@@ -78,10 +78,10 @@ export default {
             <router-link to="/toprecipes" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-white-700 md:p-0 md:dark:hover:text-white-500 dark:text-white dark:hover:bg-orange-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Top Recipes</router-link>
             </li>
             <li>
-              <router-link to="/about" href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-white-700 md:p-0 md:dark:hover:text-white-500 dark:text-white dark:hover:bg-orange-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About Us</router-link>
+              <router-link to="/about" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-white-700 md:p-0 md:dark:hover:text-white-500 dark:text-white dark:hover:bg-orange-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About Us</router-link>
             </li>
             <li>
-              <button v-if="user.isLogged==true"  @click="logout" href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-white-700 md:p-0 md:dark:hover:text-white-500 dark:text-white dark:hover:bg-orange-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Logout</button>
+              <button v-if="user.isLogged==true"  @click="logout" class="font-bold block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-white-700 md:p-0 md:dark:hover:text-white-500 dark:text-white dark:hover:bg-orange-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Logout</button>
             </li>
           </ul>
         </div>
