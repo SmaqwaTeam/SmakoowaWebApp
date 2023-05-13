@@ -34,6 +34,15 @@ export const useRecipesStore = defineStore("RecipeStore", {
                 console.log(error)
                }
         },
+        async getRecipesByCategory(id){
+            try{
+                const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Recipes/GetRecipesByCategoryId?categoryId="+id)
+                const content = res.data.content
+                return content
+            }catch(error){
+                console.log(error)
+            }
+        },
         async getCategories() {
           try{
             const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Categories/GetAll")

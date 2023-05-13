@@ -10,6 +10,8 @@ import LogOutView from '../views/LogOutView.vue'
 import RecipeView from '../views/RecipeView.vue'
 import EditRecipeView from '../views/EditRecipeView.vue'
 import SearchView from '../views/SearchView.vue'
+import CategoriesView from '../views/CategoriesView.vue'
+import TagsView from '../views/TagsView.vue'
 const routes = [
         {path: '/', name:'Home', component:Home},
         {path:'/about', name:'About', component: About},
@@ -36,6 +38,26 @@ const routes = [
                 name: 'editrecipeById',
                 component: EditRecipeView,
                 props: route=> ({ id: parseInt(route.params.editrecipeid) }),
+        }
+        ]
+        },
+        {path: '/categories', name:'Categories', component:CategoriesView,
+        children: [
+            {
+                path: ':categoryId',
+                name: 'categoryById',
+                component: CategoriesView,
+                props: route=> ({ id: parseInt(route.params.categoryId) }),
+        }
+        ]
+        },
+        {path: '/tags', name:'Tags', component:TagsView,
+        children: [
+            {
+                path: ':tagId',
+                name: 'tagById',
+                component: TagsView,
+                props: route=> ({ id: parseInt(route.params.tagId) }),
         }
         ]
         },
