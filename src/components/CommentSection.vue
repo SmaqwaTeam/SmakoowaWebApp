@@ -12,7 +12,7 @@
             <button  v-if="comment.creatorId == user.id" @click="deleteUserComment(comment.id)" class=" text-orange-500 hover:underline focus:outline-none">Delete</button>
             <button  v-if="comment.creatorId == user.id" @click="showEditComment(comment.id)" class=" text-orange-500 hover:underline focus:outline-none">Edit</button>
         </div>
-          <form v-if="comment.id === editCommentForm.originalCommentId" @submit.prevent="editUserComment" class="mt-4 flex space-x-4">
+          <form v-if="comment.id === editCommentForm.originalCommentId && user.isLogged" @submit.prevent="editUserComment" class="mt-4 flex space-x-4">
             <div class="flex-1">
               <div class="flex items-center space-x-4">
                 <input v-model="editCommentForm.newContent" type="text" class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white" placeholder="Edit a Comment..." required>
@@ -32,7 +32,7 @@
                 <button v-if="comment.creatorId == user.id && user.isLogged" @click="deleteUserReply(reply.id)" class=" text-orange-500 hover:underline focus:outline-none">Delete</button>
                 <button v-if="comment.creatorId == user.id && user.isLogged" @click="showEditReply(reply.id)" class=" text-orange-500 hover:underline focus:outline-none">Edit</button>
             </div>
-              <form v-if="reply.id === editReplyForm.originalReplyId" @submit.prevent="editUserReply" class="mt-4 flex space-x-4">
+              <form v-if="reply.id === editReplyForm.originalReplyId && user.isLogged" @submit.prevent="editUserReply" class="mt-4 flex space-x-4">
             <div class="flex-1">
               <div class="flex items-center space-x-4">
                 <input v-model="editReplyForm.newContent" type="text" class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white" placeholder="Edit a reply..." required>
@@ -43,7 +43,7 @@
             </div>
           </div>
           
-          <form v-if="comment.id === replyForm.parentId" @submit.prevent="addCommentReply" class="mt-4 flex space-x-4">
+          <form v-if="comment.id === replyForm.parentId && user.isLogged" @submit.prevent="addCommentReply" class="mt-4 flex space-x-4">
             <div class="flex-1">
               <div class="flex items-center space-x-4">
                 <input v-model="replyForm.content" type="text" class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white" placeholder="Add a reply..." required>
@@ -53,7 +53,7 @@
           </form>
         </div>
         
-        <form @submit.prevent="addComment" class="flex space-x-4">
+        <form v-if="user.isLogged" @submit.prevent="addComment" class="flex space-x-4">
         <div class="flex-1">
             <div class="flex items-center space-x-4">
                 <input v-model="userComment" type="text" class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white" placeholder="Add a comment..." required>
