@@ -51,16 +51,7 @@ const routes = [
         }
         ]
         },
-        {path: '/tags', name:'Tags', component:TagsView,
-        children: [
-            {
-                path: ':tagId',
-                name: 'tagById',
-                component: TagsView,
-                props: route=> ({ id: parseInt(route.params.tagId) }),
-        }
-        ]
-        },
+        {path: '/tags', name:'Tags', component:TagsView},
 
 ]
 const router = createRouter({

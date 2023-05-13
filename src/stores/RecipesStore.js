@@ -43,6 +43,17 @@ export const useRecipesStore = defineStore("RecipeStore", {
                 console.log(error)
             }
         },
+        async getRecipesByTags(arrayTagIds){
+            const slug = this.getSlugTagId(arrayTagIds)
+            try{
+                const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Recipes/GetRecipesByTagIds?"+slug)
+                const content = res.data.content
+                console.log(content)
+                return content
+            }catch(error){
+                console.log(error)
+            }
+        },
         async getCategories() {
           try{
             const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Categories/GetAll")
@@ -257,5 +268,20 @@ export const useRecipesStore = defineStore("RecipeStore", {
                 console.log(error)
             }
         },
+        getSlugTagId(tagIds)
+        {
+            let urlstring = ""
+            tagIds.forEach(function (value,index){
+                if(index==0)
+                {
+                    urlstring+='tagIds='+value
+                }
+                else
+                {
+                    urlstring+='&tagIds='+value
+                }
+            })
+            return urlstring
+        }
     }
 })
