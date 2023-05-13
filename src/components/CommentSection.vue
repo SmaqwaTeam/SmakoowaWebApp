@@ -7,9 +7,21 @@
             <span class="text-sm text-gray-500">{{comment.createdAt.split('T')[0]}}</span>
           </div>
           <p class="text-gray-700">{{ comment.content }}</p>
-          <button @click="showReplyForm(comment.id)" class="text-orange-500 hover:underline focus:outline-none">Reply</button>
+          <div class="flex flex-row gap-2" v-if="user.isLogged">
+            <button @click="showReplyForm(comment.id)" class="text-orange-500 hover:underline focus:outline-none">Reply</button>
+            <button  v-if="comment.creatorId == user.id" @click="deleteUserComment(comment.id)" class=" text-orange-500 hover:underline focus:outline-none">Delete</button>
+            <button  v-if="comment.creatorId == user.id" @click="showEditComment(comment.id)" class=" text-orange-500 hover:underline focus:outline-none">Edit</button>
         </div>
-        <div class="mt-4 space-y-4">
+          <form v-if="comment.id === editCommentForm.originalCommentId" @submit.prevent="editUserComment" class="mt-4 flex space-x-4">
+            <div class="flex-1">
+              <div class="flex items-center space-x-4">
+                <input v-model="editCommentForm.newContent" type="text" class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white" placeholder="Edit a Comment..." required>
+              </div>
+              <button type="submit" class="mt-2 px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:bg-orange-600">Edit Comment</button>
+            </div>
+          </form> 
+        </div>
+        <div class="mt-4 space-y-4 flex flex-col">
             <div v-for="reply in comment.commentReplies" :key="reply.id" class="flex space-x-4">
               <div class="flex-1">
                 <div class="flex justify-between">
@@ -17,9 +29,20 @@
                   <span class="text-sm text-gray-500">{{reply.createdAt.split('T')[0]}}</span>
                 </div>
                 <p class="text-gray-700">{{ reply.content }}</p>
-              </div>
+                <button v-if="comment.creatorId == user.id && user.isLogged" @click="deleteUserReply(reply.id)" class=" text-orange-500 hover:underline focus:outline-none">Delete</button>
+                <button v-if="comment.creatorId == user.id && user.isLogged" @click="showEditReply(reply.id)" class=" text-orange-500 hover:underline focus:outline-none">Edit</button>
             </div>
-          </div> 
+              <form v-if="reply.id === editReplyForm.originalReplyId" @submit.prevent="editUserReply" class="mt-4 flex space-x-4">
+            <div class="flex-1">
+              <div class="flex items-center space-x-4">
+                <input v-model="editReplyForm.newContent" type="text" class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white" placeholder="Edit a reply..." required>
+              </div>
+              <button type="submit" class="mt-2 px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:bg-orange-600">Edit reply</button>
+            </div>
+          </form> 
+            </div>
+          </div>
+          
           <form v-if="comment.id === replyForm.parentId" @submit.prevent="addCommentReply" class="mt-4 flex space-x-4">
             <div class="flex-1">
               <div class="flex items-center space-x-4">
@@ -41,7 +64,7 @@
     </div>
 </template>
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 import {useUserStore} from '../stores/UserStore'
 import AuthorName from './AuthorName.vue';
 export default {
@@ -51,6 +74,11 @@ export default {
         id: Number,
         comments: Array,
     },
+    computed:{
+        ...mapState(useUserStore,{
+            user:'user'
+        })
+    },
   data() {
     return {
       commentsArray: [],
@@ -58,7 +86,15 @@ export default {
       replyForm:{
         parentId: null,
         content: "", 
-      }
+      },
+      editCommentForm: {
+        originalCommentId: null,
+        newContent: "", 
+      },
+      editReplyForm: {
+        originalReplyId: null,
+        newContent: "", 
+      },
        
     };
   },
@@ -69,15 +105,43 @@ export default {
     
     ...mapActions(useUserStore,{
         postComment: 'postComment',
+        deleteComment: 'deleteComment',
+        deleteReply: 'deleteReply',
         addReply: 'addReply',
+        editComment: 'editComment',
+        editReply: 'editReply',
     }),
     addComment() {
       const payload = {recipeId: this.id,content: this.userComment}
         this.postComment(payload)
         this.$router.go(0);
     },
+    editUserComment(){
+        const payload = {commentId: this.editCommentForm.originalCommentId,content: this.editCommentForm.newContent}
+        this.editComment(payload)
+        this.$router.go(0);
+    },
+    editUserReply(){
+        const payload = {replyId: this.editReplyForm.originalReplyId,content: this.editReplyForm.newContent}
+        this.editReply(payload)
+        this.$router.go(0);
+    },
+    deleteUserComment(id){
+        this.deleteComment(id)
+        this.$router.go(0);
+    },
+    deleteUserReply(id){
+        this.deleteReply(id)
+       this.$router.go(0)
+    },
     showReplyForm(commentId) {
       this.replyForm.parentId = commentId;
+    },
+    showEditReply(commentId){
+        this.editReplyForm.originalReplyId = commentId
+    },
+    showEditComment(commentId){
+        this.editCommentForm.originalCommentId = commentId
     },
     addCommentReply() {
         const payload = {commentId: this.replyForm.parentId,content: this.replyForm.content }

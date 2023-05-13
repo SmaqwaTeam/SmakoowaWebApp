@@ -185,6 +185,101 @@ console.log(data)
 console.log(error)
 }
     },
+    async deleteComment(id){
+      try{
+        const res = await fetch(
+          import.meta.env.VITE_API_BACKEND+"/api/Comments/DeleteRecipeComment/"+id,
+            {
+              method: "DELETE",
+              headers: {
+                'Content-Type': 'application/json',
+                'accept': 'text/plain',
+                'Authorization': 'Bearer '+localStorage.getItem('userToken')
+              },
+            }
+        );
+        const data = await res.json();
+console.log(data)
+      }catch(error)
+      {
+        console.log(error)
+      }
+    },
+    async deleteReply(id){
+      try{
+        const res = await fetch(
+          import.meta.env.VITE_API_BACKEND+"/api/Comments/DeleteCommentReply/"+id,
+            {
+              method: "DELETE",
+              headers: {
+                'Content-Type': 'application/json',
+                'accept': 'text/plain',
+                'Authorization': 'Bearer '+localStorage.getItem('userToken')
+              },
+            }
+        );
+        const data = await res.json();
+console.log(data)
+      }catch(error)
+      {
+        console.log(error)
+      }
+    },
+    async editComment(payload)
+    {
+      const commentId = payload.commentId
+      const content = payload.content
+      try{
+        const res = await fetch(
+          import.meta.env.VITE_API_BACKEND+"/api/Comments/EditRecipeComment/"+commentId,
+            {
+              method: "PUT",
+              headers: {
+                'Content-Type': 'application/json',
+                'accept': 'text/plain',
+                'Authorization': 'Bearer '+localStorage.getItem('userToken')
+              },
+              body:JSON.stringify({
+                "content":content,
+              })
+            }
+        );
+        const data = await res.json();
+console.log(data)
+
+}catch(error)
+{
+console.log(error)
+}
+    },
+    async editReply(payload)
+    {
+      console.log(payload)
+      const replyId = payload.replyId
+      const content = payload.content
+      try{
+        const res = await fetch(
+          import.meta.env.VITE_API_BACKEND+"/api/Comments/EditCommentReply/"+replyId,
+            {
+              method: "PUT",
+              headers: {
+                'Content-Type': 'application/json',
+                'accept': 'text/plain',
+                'Authorization': 'Bearer '+localStorage.getItem('userToken')
+              },
+              body:JSON.stringify({
+                "content":content,
+              })
+            }
+        );
+        const data = await res.json();
+console.log(data)
+
+}catch(error)
+{
+console.log(error)
+}
+    },
     async getUserNameById(userId)
     {
       try{

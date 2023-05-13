@@ -9,7 +9,6 @@
         <div>
             <h1 class="mb-4 text-2xl font-bold"> Ingredients</h1>
             <div v-for="(group,index ) in ingredients" >
-                <p> Group {{ index}}</p> 
                 <p class="font-bold" v-for="ingredient in group"> {{ ingredient.name }} </p>
             </div>
         </div>
@@ -19,7 +18,11 @@
                 <p> {{ index+1 }}. {{ inst.content }} </p>
             </div>
         </div>
-        <CommentSection :id="parseInt(recipeid)" :comments="recipe.recipeComments"></CommentSection>
+        <div class="flex flex-col">
+            <p class="mb-4 text-2xl font-bold"> Comments</p>
+           <CommentSection :id="parseInt(recipeid)" :comments="recipe.recipeComments"></CommentSection> 
+        </div>
+        
     </div>
     
     <div v-else>
