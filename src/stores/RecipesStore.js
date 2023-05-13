@@ -248,6 +248,7 @@ export const useRecipesStore = defineStore("RecipeStore", {
                 console.log(error)
             }
         },
+
         async deleteRecipe(recipeId)
         {
             try{
