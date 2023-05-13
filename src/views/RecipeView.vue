@@ -19,8 +19,9 @@
                 <p> {{ index+1 }}. {{ inst.content }} </p>
             </div>
         </div>
-       
+        <CommentSection :id="parseInt(recipeid)" :comments="recipe.recipeComments"></CommentSection>
     </div>
+    
     <div v-else>
         <p> ADD PLACEHOLDER HERE !!!!!</p>
     </div>
@@ -31,9 +32,10 @@
 import { computed } from '@vue/reactivity';
 import { mapActions, mapState } from 'pinia';
 import { useRecipesStore } from '../stores/RecipesStore';
-
+import CommentSection from '../components/CommentSection.vue';
 export default {
     name: 'RecipeView',
+    components: { CommentSection},
     props: {
         id: Number
     },

@@ -247,6 +247,6 @@ export const useRecipesStore = defineStore("RecipeStore", {
             }catch(error){
                 console.log(error)
             }
-        }
+        },
     }
 })

@@ -130,6 +130,70 @@ export const useUserStore = defineStore("UserStore", {
         }catch(error){
             console.log(error)
         }
-    },    
+    },
+    async postComment(payload)
+    {
+      const recipeId = payload.recipeId
+      const content = payload.content
+      try{
+        const res = await fetch(
+          import.meta.env.VITE_API_BACKEND+"/api/Comments/AddRecipeComment/"+recipeId,
+            {
+              method: "POST",
+              headers: {
+                'Content-Type': 'application/json',
+                'accept': 'text/plain',
+                'Authorization': 'Bearer '+localStorage.getItem('userToken')
+              },
+              body:JSON.stringify({
+                "content":content,
+              })
+            }
+        );
+        const data = await res.json();
+console.log(data)
+
+}catch(error)
+{
+console.log(error)
+}
+    },
+    async addReply(payload)
+    {
+      const commentId= payload.commentId
+      const content = payload.content
+      try{
+        const res = await fetch(
+          import.meta.env.VITE_API_BACKEND+"/api/Comments/AddCommentReply/"+commentId,
+            {
+              method: "POST",
+              headers: {
+                'Content-Type': 'application/json',
+                'accept': 'text/plain',
+                'Authorization': 'Bearer '+localStorage.getItem('userToken')
+              },
+              body:JSON.stringify({
+                "content":content,
+              })
+            }
+        );
+        const data = await res.json();
+console.log(data)
+
+}catch(error)
+{
+console.log(error)
+}
+    },
+    async getUserNameById(userId)
+    {
+      try{
+        const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Users/GetUserById/"+userId)
+        return res.data.content.username
+      }catch(error)
+      {
+        console.log(error)
+      }
+    }    
     }
 })
