@@ -4,8 +4,8 @@
         <div class="flex flex-wrap gap-5">
             <div v-for="tag in recipes.tags">
                 <div class="flex flex-row rounded-lg items-center justify-center bg-orange-400 w-fit p-2">
-                    <likeTagButton :tagId="tag.id"></likeTagButton>
-                    <button @click="addtoArray(tag.id)" type="button" class="rounded-lg bg-orange-500 w-fit p-2" > {{ tag.name }} </button> 
+                    <likeTagButton :tagId="tag.id" ></likeTagButton>
+                    <button  :class="{'bg-yellow-400':selectedRecipesTags.find(e => e == tag.id)}"  @click="addtoArray(tag.id)" type="button" class="rounded-lg bg-orange-500 w-fit p-2" > {{ tag.name }} </button> 
                 </div>    
             
         </div>
@@ -69,9 +69,19 @@ export default{
         }),
         async addtoArray(id)
         {
-            this.selectedRecipesTags.push(id)
+            if(!this.selectedRecipesTags.find(e => e == id))
+            {
+                this.selectedRecipesTags.push(id)
             console.log(this.selectedRecipesTags)
             this.recipesFromApi =  await this.getRecipesByTags(this.selectedRecipesTags)
+            }
+            else
+            {
+                this.selectedRecipesTags = this.selectedRecipesTags.filter(t => {
+                return t !== id
+            })
+            this.recipesFromApi =  await this.getRecipesByTags(this.selectedRecipesTags)
+            }
         },
         async showRecipesByTag(id)
         {

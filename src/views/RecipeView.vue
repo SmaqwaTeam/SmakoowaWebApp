@@ -1,11 +1,38 @@
 <template>
 <div>
     <div class="container mx-auto" v-if="recipe">
-        <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl"> {{ recipe.name }}</h1>
-        <img v-if="imagesrc" class=" h-96 w-144 rounded-t-lg " :src="getimagesrc" alt="Recipe Image">
-        <img v-else class=" rounded-t-lg" src="../assets/mealicon.jpg" alt="Default Recipe Image">
-        <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"> {{ recipe.description }}</p>
-        <p>Category: {{ getCategoryNameById(recipe.categoryId).name }}</p>
+        <div class="flex flex-col">
+            <h1 class="mb-4 text-4xl font-extrabold text-center leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl"> {{ recipe.name }}</h1>
+            <hr>
+            <div class="flex flex-row justify-evenly py-2 gap-2">
+                <div>Recipe by: <i><AuthorName :creatorId="recipe.creatorId"></AuthorName></i></div>
+                <div>Views: {{ recipe.viewCount }}</div>
+                <div>Created at: {{ recipe.createdAt.split('T')[0] }}</div>
+           </div>
+           <hr>
+            <div class="w-full rounded-lg border-orange-300 border-solid border-2 md:w-1/3 mx-auto">
+                 <img v-if="imagesrc" class=" h-48 w-72 rounded-t-lg " :src="getimagesrc" alt="Recipe Image">
+                <img v-else class=" rounded-t-lg" src="../assets/mealicon.jpg" alt="Default Recipe Image">
+            </div>
+            <hr>
+                <div class="flex flex-row justify-evenly py-2 gap-2 bg-orange-100">
+                    <div class=""> {{ getTimeToMakeFromId(recipe.timeToMakeTier) }}</div>
+                    <div class=""> {{ getServingsFromId(recipe.servingsTier) }}</div>
+                    <div class="flex flex-row gap-2">
+                        <LikeButton v-if="user.isLogged" :recipeId="recipe.id" > </LikeButton>
+                        <div>{{ recipe.likeCount }}</div>
+                    </div>
+                    
+                </div>       
+            <hr> 
+        
+        <p class="text-center mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48"> {{ recipe.description }}</p>
+        <div class="text-xl text-gray-900 bg-orange-200 rounded-lg w-fit p-2" @click="$router.push('/categories/'+recipe.categoryId)">Category: {{ getCategoryNameById(recipe.categoryId).name }}</div>
+        <div class="flex flex-row flex-wrap mt-4"> 
+            <div v-for="tagId in recipe.tagIds"> 
+                <button type="button" class="rounded-full p-2 bg-orange-200"> #{{ getTagNameById(tagId) }} </button>
+            </div>
+        </div>
         <div>
             <h1 class="mb-4 text-2xl font-bold"> Ingredients</h1>
             <div v-for="(group,index ) in ingredients" >
@@ -22,7 +49,7 @@
             <p class="mb-4 text-2xl font-bold"> Comments</p>
            <CommentSection :id="parseInt(recipeid)" :comments="recipe.recipeComments"></CommentSection> 
         </div>
-        
+        </div>
     </div>
     
     <div v-else>
@@ -35,16 +62,23 @@
 import { computed } from '@vue/reactivity';
 import { mapActions, mapState } from 'pinia';
 import { useRecipesStore } from '../stores/RecipesStore';
+import { useUserStore } from '../stores/UserStore';
 import CommentSection from '../components/CommentSection.vue';
+import  {HeartIcon}  from '@heroicons/vue/24/solid';
+import AuthorName from '../components/AuthorName.vue';
+import LikeButton from '../components/LikeButton.vue';
 export default {
     name: 'RecipeView',
-    components: { CommentSection},
+    components: { CommentSection, HeartIcon, AuthorName,LikeButton},
     props: {
         id: Number
     },
     computed: {
         ...mapState(useRecipesStore, {
-            getCategoryNameById: "getCategoryNameById"
+            getCategoryNameById: "getCategoryNameById",
+        }),
+        ...mapState(useUserStore,{
+            user:"user"
         }),
         getimagesrc()
         {
@@ -75,7 +109,10 @@ export default {
     },
     methods: {
         ...mapActions(useRecipesStore,{
-          getRecipeById: "getRecipeById"  
+          getRecipeById: "getRecipeById",
+          getTimeToMakeFromId: "getTimeToMakeFromId",
+          getServingsFromId: "getServingsFromId",
+          getTagNameById: "getTagNameById",  
         }),
         groupByKey(array, key) {
         return array
