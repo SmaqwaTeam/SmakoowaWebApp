@@ -154,10 +154,11 @@ export const useUserStore = defineStore("UserStore", {
         );
         const data = await res.json();
 console.log(data)
-
+return true
 }catch(error)
 {
 console.log(error)
+return false
 }
     },
     async addReply(payload)
@@ -202,9 +203,11 @@ console.log(error)
         );
         const data = await res.json();
 console.log(data)
+return true
       }catch(error)
       {
         console.log(error)
+        return false
       }
     },
     async deleteReply(id){
@@ -248,10 +251,11 @@ console.log(data)
         );
         const data = await res.json();
 console.log(data)
-
+return true
 }catch(error)
 {
 console.log(error)
+return false
 }
     },
     async editReply(payload)

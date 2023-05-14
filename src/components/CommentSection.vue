@@ -111,24 +111,35 @@ export default {
         editComment: 'editComment',
         editReply: 'editReply',
     }),
-    addComment() {
+    async addComment() {
       const payload = {recipeId: this.id,content: this.userComment}
-        this.postComment(payload)
-        this.$router.go(0);
+        let comment = await this.postComment(payload)
+        if(comment)
+        {
+          this.$router.go(0);
+        }
+        
     },
-    editUserComment(){
+    async editUserComment(){
         const payload = {commentId: this.editCommentForm.originalCommentId,content: this.editCommentForm.newContent}
-        this.editComment(payload)
+       let comment = await this.editComment(payload)
+       if(comment)
+       {
         this.$router.go(0);
+       }
+        
     },
     editUserReply(){
         const payload = {replyId: this.editReplyForm.originalReplyId,content: this.editReplyForm.newContent}
         this.editReply(payload)
         this.$router.go(0);
     },
-    deleteUserComment(id){
-        this.deleteComment(id)
-        this.$router.go(0);
+   async deleteUserComment(id){
+        let comment = await this.deleteComment(id)
+        if(comment)
+        {
+          this.$router.go(0);
+        }
     },
     deleteUserReply(id){
         this.deleteReply(id)
