@@ -61,7 +61,7 @@ export default {
       </label>
     </div>
     <div class="md:w-2/3">
-      <input  v-model="password" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="password" placeholder="***** ***">
+      <input  v-model="password" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="password" placeholder="*****">
     </div>
   </div>
   <div class="md:flex md:items-center mb-6">
@@ -71,7 +71,7 @@ export default {
       </label>
     </div>
     <div class="md:w-2/3">
-      <input  v-model="confpassword" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-cofirm-password" type="password" placeholder="***** ***">
+      <input  v-model="confpassword" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-cofirm-password" type="password" placeholder="*****">
     </div>
   </div>
   <div class="md:flex md:items-center">

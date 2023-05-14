@@ -36,8 +36,18 @@ export const useUserStore = defineStore("UserStore", {
                             }
                         );
                         const data = await res.json();
-        console.log(data)
+            console.log(data.errors)
 
+            if(data.successStatus){
+              alert(data.message)
+              this.$router.push("/login")
+            }
+            else
+            {
+              let error = Object.entries(data.errors)
+              alert(error)
+              this.$router.go(0)
+            }                
             }catch(error)
             {
               console.log(error)
@@ -63,7 +73,8 @@ export const useUserStore = defineStore("UserStore", {
             );
             const data = await res.json();
             console.log(data);
-           let id = data.content.user.id
+            if(data.successStatus){
+              let id = data.content.user.id
             let usertoken =data.content.token;
             let userlogin = data.content.user.username;
             this.user.login = userlogin
@@ -74,6 +85,13 @@ export const useUserStore = defineStore("UserStore", {
             console.log("user login");
             this.user.isLogged = true;
             this.$router.push('/profile')
+            }
+            else
+            {
+              alert(data.message)
+              this.$router.go(0)
+            }
+            
       
         },
         logoutUser(){
@@ -82,8 +100,6 @@ export const useUserStore = defineStore("UserStore", {
         this.user.id = ""
         this.user.isLogged = false;
           console.log("Log out");
-          
-
         },
         checkIfUserIsLogged(){
           if(localStorage.getItem("userLogin"))
