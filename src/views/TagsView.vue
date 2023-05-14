@@ -30,6 +30,7 @@
 import { mapActions, mapState } from 'pinia';
 import { useRecipesStore } from '../stores/RecipesStore';
 import RecipeCard from '../components/RecipeCard.vue';
+import { useUserStore } from '../stores/UserStore';
 import LikeTagButton from '../components/LikeTagButton.vue';
 export default{
     name:'TagsView',
@@ -41,6 +42,7 @@ export default{
             showMessage: true
         }
     },
+    
     created(){
         if(!this.user.userLikedTags && this.user.isLogged)
         {
@@ -56,7 +58,10 @@ export default{
     computed: {
         ...mapState(useRecipesStore,{
             recipes: 'recipes'
-        })
+        }),
+        ...mapState(useUserStore,{
+            user: 'user'
+        }),
     },
     methods: {
         ...mapActions(useRecipesStore,{
