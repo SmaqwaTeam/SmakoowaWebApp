@@ -20,7 +20,7 @@ const routes = [
         {path:'/about', name:'About', component: About},
         {path:'/login', name:'Login', component: LoginView},
         {path: '/register', name:'Register', component:RegisterView},
-        {path:  '/profile', name:'Profile ', component:ProfileView,
+        {path:  '/profile', name:'Profile ', component:ProfileView, redirect: '/profile/userrecipes',
         children: [
             {
                path:'userrecipes', name:'UserRecipes', component: UserRecipes 
