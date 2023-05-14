@@ -182,9 +182,10 @@ return false
         );
         const data = await res.json();
 console.log(data)
-
+return true
 }catch(error)
 {
+  return false
 console.log(error)
 }
     },
@@ -225,9 +226,12 @@ return true
         );
         const data = await res.json();
 console.log(data)
+return true
       }catch(error)
       {
+       
         console.log(error)
+        return false
       }
     },
     async editComment(payload)
@@ -280,10 +284,11 @@ return false
         );
         const data = await res.json();
 console.log(data)
-
+return true
 }catch(error)
 {
 console.log(error)
+return false
 }
     },
     async addLikeToTag(tagId)

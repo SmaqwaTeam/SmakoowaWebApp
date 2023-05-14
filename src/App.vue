@@ -27,11 +27,11 @@ export default {
     {
      loadTags = await this.getTags() 
     }
-    if(loadTags)
+    if(loadTags && this.user.isLogged )
     {
       loadLikedRecipes = await this.getLikedRecipes()
     }
-    if(loadLikedRecipes)
+    if(loadLikedRecipes || (loadTags && loadCategories) )
     {
       this.isAppDataLoaded = true
     }

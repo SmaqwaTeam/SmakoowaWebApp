@@ -129,17 +129,28 @@ export default {
        }
         
     },
-    editUserReply(){
-        const payload = {replyId: this.editReplyForm.originalReplyId,content: this.editReplyForm.newContent}
-        this.editReply(payload)
-        this.$router.go(0);
-    },
    async deleteUserComment(id){
         let comment = await this.deleteComment(id)
         if(comment)
         {
           this.$router.go(0);
         }
+    },
+   async addCommentReply() {
+        const payload = {commentId: this.replyForm.parentId,content: this.replyForm.content }
+        let res = await this.addReply(payload)
+        if(res)
+        {
+          this.$router.go(0);
+        }
+    },
+   async editUserReply(){
+        const payload = {replyId: this.editReplyForm.originalReplyId,content: this.editReplyForm.newContent}
+        let res = await this.editReply(payload)
+        if(res)
+        {
+          this.$router.go(0);
+        }     
     },
     deleteUserReply(id){
         this.deleteReply(id)
@@ -154,11 +165,7 @@ export default {
     showEditComment(commentId){
         this.editCommentForm.originalCommentId = commentId
     },
-    addCommentReply() {
-        const payload = {commentId: this.replyForm.parentId,content: this.replyForm.content }
-        this.addReply(payload)
-        this.$router.go(0);
-    },
+    
   },
 };
 </script>         

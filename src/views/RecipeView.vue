@@ -26,7 +26,7 @@
     </div>
     
     <div v-else>
-        <p> ADD PLACEHOLDER HERE !!!!!</p>
+        <p>😥</p>
     </div>
     
 </div>
