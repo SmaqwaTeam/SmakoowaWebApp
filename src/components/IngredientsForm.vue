@@ -1,7 +1,7 @@
 <template>
 <div class="flex flex-row gap-5 p-3 border-2 rounded-lg border-orange-500 w-full items-center my-3" v-for="ing in ingredientsList">
     <div class="flex-auto w-1/6 ">
-       Recipe {{ ing.position }}  
+        Ingredient {{ ing.position }}  
     </div>
     <div class="flex-auto w-1/2 ">
       {{ ing.name }}

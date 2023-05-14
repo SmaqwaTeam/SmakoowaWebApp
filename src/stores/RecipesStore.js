@@ -15,9 +15,17 @@ export const useRecipesStore = defineStore("RecipeStore", {
     getters: {
         getCategoryNameById: (state) => {
             return (catId) => state.recipes.categories.find((category) => category.id === catId)
-        }
+        },
     },
     actions: {
+        getTimeToMakeFromId(id){
+            const TimeToMake = ['Up To 15 Min','From 15 To 30 Min','From 30 To 45Min', 'From 30 To 45 Min','From 45 To 60 Min','Over 60 Min' ]
+            return TimeToMake[id]
+        },
+        getServingsFromId(id){
+            const TimeToMake = ['One or Two','Two or Three','Three or Four', 'Four or Five','Five or Six','Over Six' ]
+            return TimeToMake[id]
+        },
         async getRecipeById(id){
             try{
                 const res = await axios.get(import.meta.env.VITE_API_BACKEND+"/api/Recipes/GetByIdDetailed/"+id)
