@@ -12,12 +12,27 @@ import EditRecipeView from '../views/EditRecipeView.vue'
 import SearchView from '../views/SearchView.vue'
 import CategoriesView from '../views/CategoriesView.vue'
 import TagsView from '../views/TagsView.vue'
+import UserLikes from '../components/UserProfileTabs/UserLikes.vue'
+import UserTags from '../components/UserProfileTabs/UserTags.vue'
+import UserRecipes from '../components/UserProfileTabs/UserRecipes.vue'
 const routes = [
         {path: '/', name:'Home', component:Home},
         {path:'/about', name:'About', component: About},
         {path:'/login', name:'Login', component: LoginView},
         {path: '/register', name:'Register', component:RegisterView},
-        {path:  '/profile', name:'Profile ', component:ProfileView},
+        {path:  '/profile', name:'Profile ', component:ProfileView, redirect: '/profile/userrecipes',
+        children: [
+            {
+               path:'userrecipes', name:'UserRecipes', component: UserRecipes 
+            },
+            {
+                path:'usertags', name:'UserLikedTags', component: UserTags
+             },
+             {
+                path:'userlikes', name:'UserLikedRecipes', component: UserLikes  
+             },
+        ]
+        },
         {path: '/addrecipe', name:'AddRecipe', component:AddNewRecipeView},
         {path: '/logout', name:'Logout', component:LogOutView},
         {path: '/search', name:'Search', component:SearchView},

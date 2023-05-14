@@ -47,7 +47,7 @@ export default {
     methods:{
         pushToPage(id)
         {
-            this.$router.push('recipe/'+id)
+            this.$router.push('/recipe/'+id)
         },
         
     },

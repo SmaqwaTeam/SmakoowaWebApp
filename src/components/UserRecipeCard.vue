@@ -45,11 +45,11 @@ export default {
         pushToPage(id)
         {
             console.log(this.getimagesrc)
-            this.$router.push('recipe/'+id)
+            this.$router.push('/recipe/'+id)
         },
         editPage(id)
         {
-            this.$router.push('editrecipe/'+id)
+            this.$router.push('/editrecipe/'+id)
         },
         async deleteUserRecipe(id)
         {
