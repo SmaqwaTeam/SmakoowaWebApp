@@ -38,18 +38,7 @@ export default {
         })
     },
     components:{ UserRecipeCard, RecipeCard,UserTag},
-    async created(){
-         // this.getUserRecipes()
-          //      this.getLikedRecipes()
-              //     this.getUserLikedTags()    
-        },
     methods: {
-        ...mapActions(useUserStore, {
-          //  getUserRecipes: "getUserRecipes",
-         //   getLikedRecipes: "getLikedRecipes",
-          //  getUserLikedTags: "getUserLikedTags",
-        }),
-        
         goToAddRecipe() {
             this.$router.push("/addrecipe");
         }
