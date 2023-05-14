@@ -34,7 +34,7 @@ const routes = [
         ]
         },
         {path: '/addrecipe', name:'AddRecipe', component:()=> import ('../views/AddNewRecipeView.vue')},
-        {path: '/logout', name:'Logout', component:()=> import ('../views/LogoutView.vue')},
+        {path: '/logout', name:'Logout', component:()=> import ('../views/LogOutView.vue')},
         {path: '/search', name:'Search', component:()=> import ('../views/SearchView.vue')},
         {path: '/recipe', name:'Recipe',redirect: '/recipe/1', component:()=> import ('../views/RecipeView.vue'),
         children: [
@@ -56,7 +56,7 @@ const routes = [
         }
         ]
         },
-        {path: '/categories', name:'Categories', component:CategoriesView,
+        {path: '/categories', name:'Categories', component: ()=> import ('../views/CategoriesView.vue'),
         children: [
             {
                 path: ':categoryId',

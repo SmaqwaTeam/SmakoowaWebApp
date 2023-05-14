@@ -3,10 +3,13 @@
             <p class="text-2xl text-center">
                 Your favourite recipes 
             </p>
-            <div class="container px-5 gap-5 flex flex-wrap justify-between items-center mx-auto">
-                <div class="flex" v-if="user.userLikedRecipes" v-for="rec in user.userLikedRecipes">
-            <RecipeCard  :alldata="rec"></RecipeCard>
-        </div>
+            <div v-if="user.userLikedRecipes" class="container px-5 gap-5 flex flex-wrap justify-between items-center mx-auto">
+                <div class="flex"  v-for="rec in user.userLikedRecipes">
+                    <RecipeCard  :alldata="rec"></RecipeCard>
+                </div>
+            </div>
+            <div v-else>
+                <Placeholder></Placeholder>
             </div>
        </div>
 </template>
@@ -14,6 +17,7 @@
 import { useUserStore } from '../../stores/UserStore';
 import { mapState,mapActions } from 'pinia';
 import RecipeCard from '../RecipeCard.vue';
+import Placeholder from '../Placeholder.vue';
 export default{
     name:'UserLikes',
     computed:{
@@ -21,8 +25,9 @@ export default{
             user:'user'
         })
     },
-    components:{RecipeCard},
+    components:{RecipeCard,Placeholder},
     created(){
+        
         this.getLikedRecipes()
     },
     methods:{

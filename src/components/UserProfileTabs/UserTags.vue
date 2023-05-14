@@ -3,10 +3,13 @@
             <p class="text-2xl text-center">
                 Your Subscribed tags 
             </p>
-            <div class="container px-5 gap-5 flex flex-wrap justify-between items-center mx-auto">
-                <div class="flex" v-if="user.userLikedTags" v-for="tag in user.userLikedTags">
+            <div v-if="user.userLikedTags" class="container px-5 gap-5 flex flex-wrap justify-between items-center mx-auto">
+                <div class="flex" v-for="tag in user.userLikedTags">
                     <UserTag  :tag="tag"></Usertag>
                 </div>
+            </div>
+            <div v-else>
+                <Placeholder></Placeholder>
             </div>
        </div>
 </template>
@@ -14,6 +17,7 @@
 import { useUserStore } from '../../stores/UserStore';
 import { mapState,mapActions } from 'pinia';
 import UserTag from '../UserTag.vue';
+import Placeholder from '../Placeholder.vue';
 export default{
     name:'UserTags',
     computed:{
@@ -21,9 +25,12 @@ export default{
             user:'user'
         })
     },
-    components:{UserTag},
+    components:{UserTag,Placeholder},
     created(){
-        this.getUserLikedTags()
+        if(!this.user.userLikedTags)
+        {
+           this.getUserLikedTags()  
+        }
     },
     methods:{
         ...mapActions(useUserStore, {

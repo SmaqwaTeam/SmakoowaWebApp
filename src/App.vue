@@ -3,33 +3,50 @@ import {useRecipesStore} from "./stores/RecipesStore";
 import { useUserStore } from './stores/UserStore';
 import { mapState } from 'pinia';
 import { mapActions } from 'pinia';
+import Placeholder from "./components/Placeholder.vue";
 export default {
   data() {
     return{
-      isMenuVisible: true
+      isMenuVisible: true,
+      isAppDataLoaded: false
     }
   },
-  
+  components:{Placeholder},
   computed: {
     ...mapState(useUserStore,{
       user: "user"
     })
 
   },
-  created(){
+ async created(){
+  let loadTags, loadLikedRecipes
+
     this.checkIfUserIsLogged();
-    this.getCategories();
-    this.getTags() ;
+    let loadCategories = await this.getCategories();
+    if(loadCategories)
+    {
+     loadTags = await this.getTags() 
+    }
+    if(loadTags)
+    {
+      loadLikedRecipes = await this.getLikedRecipes()
+    }
+    if(loadLikedRecipes)
+    {
+      this.isAppDataLoaded = true
+    }
   },
   methods: {
     ...mapActions(useUserStore, {
         checkIfUserIsLogged: "checkIfUserIsLogged",
         getLikedRecipes: "getLikedRecipes",
         getUserLikedTags: "getUserLikedTags",
+        getLikedRecipes:"getLikedRecipes"
     }),
     ...mapActions(useRecipesStore,{
       getCategories: "getCategories",
       getTags: "getTags"
+      
     }),
     toggleMenu(){
       this.isMenuVisible = !this.isMenuVisible
@@ -91,9 +108,12 @@ export default {
     </div>
   </nav>
   <div class="flex flex-col w-full h-full bg-white overflow-x-hidden overflow-y-auto">
-  <main class="my-3">
+  <main v-if="isAppDataLoaded" class="my-3">
   <RouterView></RouterView>
   </main>
+  <div v-else>
+    <Placeholder></Placeholder>
+  </div>
   <footer class="h-auto bg-orange-400 mt-auto">
       <div class="container mx-auto px-4">
         <p class="text-center text-white">Powered by Smakoowa Team 2023</p>

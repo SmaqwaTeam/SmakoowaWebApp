@@ -3,17 +3,23 @@
         <p class="text-2xl text-center">
                 Your Recipes 
         </p>
-        <div class="flex flex-col items-center" >
-            <div v-if="user.userRecipes" v-for="rec in user.userRecipes">
+        <div v-if="user.userRecipes" class="flex flex-col items-center" >
+            <div  v-for="rec in user.userRecipes">
             <UserRecipeCard :alldata="rec"> </UserRecipeCard>
-            </div>    
             </div>
+             
         </div>
+        <div v-else>
+                <Placeholder></Placeholder>     
+            </div>   
+    </div>
+        
 </template>
 <script>
 import { useUserStore } from '../../stores/UserStore';
 import { mapState,mapActions } from 'pinia';
 import UserRecipeCard from '../UserRecipeCard.vue';
+import Placeholder from '../Placeholder.vue';
 export default{
     name:'UserRecipes',
     computed:{
@@ -21,7 +27,7 @@ export default{
             user:'user'
         })
     },
-    components:{UserRecipeCard},
+    components:{UserRecipeCard,Placeholder},
     created(){
         this.getUserRecipes()
     },

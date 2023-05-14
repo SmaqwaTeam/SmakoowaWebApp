@@ -5,6 +5,7 @@
 import { useUserStore } from '../stores/UserStore';
 import { mapActions,mapState } from 'pinia';
 export default {
+  name: 'LogOutView',
     computed: {
     ...mapState(useUserStore,{
       user: "user"
