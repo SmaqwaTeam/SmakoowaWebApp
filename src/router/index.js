@@ -16,42 +16,42 @@ import UserLikes from '../components/UserProfileTabs/UserLikes.vue'
 import UserTags from '../components/UserProfileTabs/UserTags.vue'
 import UserRecipes from '../components/UserProfileTabs/UserRecipes.vue'
 const routes = [
-        {path: '/', name:'Home', component:Home},
-        {path:'/about', name:'About', component: About},
-        {path:'/login', name:'Login', component: LoginView},
-        {path: '/register', name:'Register', component:RegisterView},
-        {path:  '/profile', name:'Profile ', component:ProfileView, redirect: '/profile/userrecipes',
+        {path: '/', name:'Home', component: ()=> import ('../views/Home.vue')},
+        {path:'/about', name:'About', component: ()=> import ('../views/AboutView.vue')},
+        {path:'/login', name:'Login', component: ()=> import ('../views/LoginView.vue')},
+        {path: '/register', name:'Register', component:()=> import ('../views/RegisterView.vue')},
+        {path:  '/profile', name:'Profile ', component:()=> import ('../views/ProfileView.vue'), redirect: '/profile/userrecipes',
         children: [
             {
-               path:'userrecipes', name:'UserRecipes', component: UserRecipes 
+               path:'userrecipes', name:'UserRecipes', component: ()=> import ('../components/UserProfileTabs/UserRecipes.vue') 
             },
             {
-                path:'usertags', name:'UserLikedTags', component: UserTags
+                path:'usertags', name:'UserLikedTags', component: ()=> import ('../components/UserProfileTabs/UserTags.vue')
              },
              {
-                path:'userlikes', name:'UserLikedRecipes', component: UserLikes  
+                path:'userlikes', name:'UserLikedRecipes', component: ()=> import ('../components/UserProfileTabs/UserLikes.vue')
              },
         ]
         },
-        {path: '/addrecipe', name:'AddRecipe', component:AddNewRecipeView},
-        {path: '/logout', name:'Logout', component:LogOutView},
-        {path: '/search', name:'Search', component:SearchView},
-        {path: '/recipe', name:'Recipe',redirect: '/recipe/1', component:RecipeView,
+        {path: '/addrecipe', name:'AddRecipe', component:()=> import ('../views/AddNewRecipeView.vue')},
+        {path: '/logout', name:'Logout', component:()=> import ('../views/LogoutView.vue')},
+        {path: '/search', name:'Search', component:()=> import ('../views/SearchView.vue')},
+        {path: '/recipe', name:'Recipe',redirect: '/recipe/1', component:()=> import ('../views/RecipeView.vue'),
         children: [
             {
                 path: ':recipeid',
                 name: 'recipeById',
-                component: RecipeView,
+                component: ()=> import ('../views/RecipeView.vue'),
                 props: route=> ({ id: parseInt(route.params.recipeid) }),
         }
         ]
         },
-        {path: '/editrecipe', name:'EditRecipe', component:EditRecipeView,
+        {path: '/editrecipe', name:'EditRecipe', component:()=> import ('../views/EditRecipeView.vue'),
         children: [
             {
                 path: ':editrecipeid',
                 name: 'editrecipeById',
-                component: EditRecipeView,
+                component: ()=> import ('../views/EditRecipeView.vue'),
                 props: route=> ({ id: parseInt(route.params.editrecipeid) }),
         }
         ]
@@ -61,12 +61,12 @@ const routes = [
             {
                 path: ':categoryId',
                 name: 'categoryById',
-                component: CategoriesView,
+                component: ()=> import ('../views/CategoriesView.vue'),
                 props: route=> ({ id: parseInt(route.params.categoryId) }),
         }
         ]
         },
-        {path: '/tags', name:'Tags', component:TagsView},
+        {path: '/tags', name:'Tags', component:()=> import ('../views/TagsView.vue')},
 
 ]
 const router = createRouter({
