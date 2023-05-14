@@ -66,7 +66,16 @@ const routes = [
         }
         ]
         },
-        {path: '/tags', name:'Tags', component:()=> import ('../views/TagsView.vue')},
+        {path: '/tags', name:'Tags', component:()=> import ('../views/TagsView.vue'),
+        children: [
+            {
+                path: ':tagId',
+                name: 'tagsIds',
+                component:()=> import ('../views/TagsView.vue'),
+                props: route=> ({ id: parseInt(route.params.tagId) })
+            }
+        ]    
+        },
 
 ]
 const router = createRouter({

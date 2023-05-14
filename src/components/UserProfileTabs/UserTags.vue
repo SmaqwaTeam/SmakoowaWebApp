@@ -27,7 +27,7 @@ export default{
     },
     components:{UserTag,Placeholder},
     created(){
-        if(!this.user.userLikedTags)
+        if(this.user.isLogged)
         {
            this.getUserLikedTags()  
         }

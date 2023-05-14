@@ -4,7 +4,6 @@
         <div class="flex flex-wrap gap-5">
             <div v-for="tag in recipes.tags">
                 <div class="flex flex-row rounded-lg items-center justify-center bg-orange-400 w-fit p-2">
-                    <likeTagButton :tagId="tag.id" ></likeTagButton>
                     <button  :class="{'bg-yellow-400':selectedRecipesTags.find(e => e == tag.id)}"  @click="addtoArray(tag.id)" type="button" class="rounded-lg bg-orange-500 w-fit p-2" > {{ tag.name }} </button> 
                 </div>    
             
@@ -42,9 +41,14 @@ export default{
             showMessage: true
         }
     },
-    
+    mounted(){
+        if(this.$route.params.tagId)
+        {
+             this.addtoArray(this.$route.params.tagId)
+        }
+    },
     created(){
-        if(!this.user.userLikedTags && this.user.isLogged)
+        if(this.user.isLogged)
         {
            this.getUserLikedTags()  
         }
@@ -66,6 +70,9 @@ export default{
     methods: {
         ...mapActions(useRecipesStore,{
             getRecipesByTags: 'getRecipesByTags'
+        }),
+        ...mapActions(useUserStore,{
+            getUserLikedTags: 'getUserLikedTags'
         }),
         async addtoArray(id)
         {

@@ -30,7 +30,7 @@
         <div class="text-xl text-gray-900 bg-orange-200 rounded-lg w-fit p-2" @click="$router.push('/categories/'+recipe.categoryId)">Category: {{ getCategoryNameById(recipe.categoryId).name }}</div>
         <div class="flex flex-row flex-wrap mt-4"> 
             <div v-for="tagId in recipe.tagIds"> 
-                <button type="button" class="rounded-full p-2 bg-orange-200"> #{{ getTagNameById(tagId) }} </button>
+                <button @click="$router.push('/tags/'+tagId)" type="button" class="rounded-full p-2 bg-orange-200"> #{{ getTagNameById(tagId) }} </button>
             </div>
         </div>
         <div>
