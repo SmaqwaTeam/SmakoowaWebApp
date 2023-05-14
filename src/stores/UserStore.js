@@ -8,7 +8,7 @@ export const useUserStore = defineStore("UserStore", {
             id: 1,
             isLogged:false,
             userRecipes: [],
-            userSubsribedTags: [],
+            userLikedTags: [],
             userLikedRecipes: []
             }
                 
@@ -279,6 +279,64 @@ console.log(data)
 {
 console.log(error)
 }
+    },
+    async addLikeToTag(tagId)
+    {
+        try{
+            const res = await fetch(
+                import.meta.env.VITE_API_BACKEND+"/api/Likes/AddTagLike/"+tagId,
+                  {
+                    method: "POST",
+                    headers: {
+                      'accept': 'text/plain',
+                      'Authorization': 'Bearer '+localStorage.getItem('userToken')
+                    },
+                  }
+              );
+              const data = await res.json();
+              console.log(data)
+        }catch(error){
+            console.log(error)
+        }
+    },
+    async removeLikeToTag(tagId)
+    {
+        try{
+            const res = await fetch(
+                import.meta.env.VITE_API_BACKEND+"/api/Likes/RemoveTagLike/"+tagId,
+                  {
+                    method: "DELETE",
+                    headers: {
+                      'accept': 'text/plain',
+                      'Authorization': 'Bearer '+localStorage.getItem('userToken')
+                    },
+                  }
+              );
+              const data = await res.json();
+              console.log(data)
+        }catch(error){
+            console.log(error)
+        }
+    },
+    //FIX
+    async getUserLikedTags(){
+      try{
+        const res = await fetch(
+            import.meta.env.VITE_API_BACKEND+"/api/Tags/GetUserLikedTags",
+              {
+                method: "GET",
+                headers: {
+                  'accept': 'text/plain',
+                  'Authorization': 'Bearer '+localStorage.getItem('userToken')
+                }
+              }
+          );
+          const data = await res.json()
+          console.log(data.content)
+          this.user.userLikedTags = data.content
+    }catch(error){
+        console.log(error)
+    }
     },
     async getUserNameById(userId)
     {

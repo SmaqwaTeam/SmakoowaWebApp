@@ -3,7 +3,11 @@
         <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl"> Tags</h1>
         <div class="flex flex-wrap gap-5">
             <div v-for="tag in recipes.tags">
-            <button @click="addtoArray(tag.id)" type="button" class="rounded-lg bg-orange-400 w-fit p-2" > {{ tag.name+tag.id }} </button> 
+                <div class="flex flex-row rounded-lg items-center justify-center bg-orange-400 w-fit p-2">
+                    <likeTagButtonVue :tagId="tag.id"></likeTagButtonVue>
+                    <button @click="addtoArray(tag.id)" type="button" class="rounded-lg bg-orange-500 w-fit p-2" > {{ tag.name }} </button> 
+                </div>    
+            
         </div>
         </div>
         <div v-if="recipesFromApi">
@@ -26,6 +30,7 @@
 import { mapActions, mapState } from 'pinia';
 import { useRecipesStore } from '../stores/RecipesStore';
 import RecipeCard from '../components/RecipeCard.vue';
+import likeTagButtonVue from '../components/likeTagButton.vue';
 export default{
     name:'TagsView',
     data(){
@@ -44,7 +49,7 @@ export default{
         console.log(this.selectedRecipesTags)
     })
     },
-    components:{RecipeCard},
+    components:{RecipeCard,likeTagButtonVue},
     computed: {
         ...mapState(useRecipesStore,{
             recipes: 'recipes'

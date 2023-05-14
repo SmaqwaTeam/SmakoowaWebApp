@@ -18,8 +18,10 @@
             <p class="text-2xl text-center">
                 Your Subscribed tags 
             </p>
-            <div class="grid grid-col bg-gray-100 text-center items-center italic">
-                     <div> tag 1 </div>  
+            <div class="container px-5 gap-5 flex flex-wrap justify-between items-center mx-auto">
+                <div class="flex" v-if="user.userLikedTags" v-for="tag in user.userLikedTags">
+                    <UserTag  :tag="tag"></Usertag>
+                </div>
             </div>
        </div>
        <div>
@@ -43,21 +45,24 @@ import { useUserStore } from '../stores/UserStore';
 import { mapState,mapActions } from 'pinia';
 import  UserRecipeCard  from '../components/UserRecipeCard.vue';
 import RecipeCard from '../components/RecipeCard.vue';
+import UserTag from '../components/UserTag.vue';
 export default {
     computed: {
         ...mapState(useUserStore, {
             user: "user"
         })
     },
-    components:{ UserRecipeCard, RecipeCard},
-    created(){
-            this.getUserRecipes()
-            this.getLikedRecipes()
+    components:{ UserRecipeCard, RecipeCard,UserTag},
+    async created(){
+           await this.getUserRecipes()
+                this.getLikedRecipes()
+                   this.getUserLikedTags()    
         },
     methods: {
         ...mapActions(useUserStore, {
             getUserRecipes: "getUserRecipes",
-            getLikedRecipes: "getLikedRecipes"
+            getLikedRecipes: "getLikedRecipes",
+            getUserLikedTags: "getUserLikedTags",
         }),
         
         goToAddRecipe() {

@@ -1,19 +1,18 @@
 <template>
     <div @click="toggleLike">
-       <HeartIcon class="h-6 w-6 text-white fill-current" v-bind:class="{'fill-red-500':value}" > </HeartIcon> 
+      <HandThumbUpIcon class="h-6 w-6 text-white fill-current" v-bind:class="{'fill-green-400':value}"></HandThumbUpIcon> 
     </div>
    
 </template>
 <script>
-import { HeartIcon } from "@heroicons/vue/24/solid";
-import { useRecipesStore } from "../stores/RecipesStore";
+import { HandThumbUpIcon } from "@heroicons/vue/24/solid";
 import {useUserStore} from "../stores/UserStore";
 import { mapState,mapActions } from 'pinia';
 export default {
-    name:'LikeButton',
-    components: { HeartIcon},
+    name:'LikeTagButton',
+    components: { HandThumbUpIcon},
     props: {
-        recipeId: Number
+        tagId: Number
     },
     computed: {
         ...mapState(useUserStore, {
@@ -28,26 +27,26 @@ export default {
     created(){
         if(this.user.isLogged)
         {
-           if(this.user.userLikedRecipes.find(e => e.id === this.recipeId))
+           if(this.user.userLikedTags.find(e => e.id === this.tagId))
            {
             this.value = true
            }
         }
     },
     methods: {
-        ...mapActions(useRecipesStore,{
-      addLike: "addLike",
-      removeLike: "removeLike"
+        ...mapActions(useUserStore,{
+      addLikeToTag: "addLikeToTag",
+      removeLikeToTag: "removeLikeToTag"
     }),
         toggleLike(){
             this.value = !this.value
             if(this.value == true)
             {
-                this.addLike(this.recipeId)
+                this.addLikeToTag(this.tagId)
             }
             else
             {
-                this.removeLike(this.recipeId)
+                this.removeLikeToTag(this.tagId)
             }
         }
     }
