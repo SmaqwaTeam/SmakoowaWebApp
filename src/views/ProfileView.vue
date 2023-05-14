@@ -6,13 +6,13 @@
             <div class="my-4 border-b border-gray-200 w-full ">
                 <ul class="flex flex-wrap -mb-px text-sm font-medium text-center justify-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                 <li class="mr-2" role="presentation">
-                    <button @click="$router.push('/profile/userrecipes')" class="inline-block p-4 border-b-2 rounded-t-lg " id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Your Recipes</button>
+                    <button @click="$router.push('/profile/userrecipes')" class="inline-block p-4 border-b-2 rounded-t-lg hover:text-orange-600 hover:border-orange-300" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Your Recipes</button>
                 </li>
                 <li class="mr-2" role="presentation">
-                    <button @click="$router.push('/profile/usertags')" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 " id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Your Tags</button>
+                    <button @click="$router.push('/profile/usertags')" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-orange-600 hover:border-orange-300 " id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Your Tags</button>
                 </li>
                 <li class="mr-2" role="presentation">
-                    <button @click="$router.push('/profile/userlikes')" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 " id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Your favourite Recipes</button>
+                    <button @click="$router.push('/profile/userlikes')" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-orange-600 hover:border-orange-300 " id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Your favourite Recipes</button>
                 </li>
                 </ul>
             </div>

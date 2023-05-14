@@ -62,9 +62,10 @@ export const useRecipesStore = defineStore("RecipeStore", {
                 
                 this.recipes.categories.push(element)
             });
-
+            return true
         }catch(error){
             console.log(error)
+            return false
            }
         },
         async getTags(){
@@ -75,8 +76,10 @@ export const useRecipesStore = defineStore("RecipeStore", {
                 
                     this.recipes.tags.push(element)
                 });
+                return true
             }catch(error){
                 console.log(error)
+                return false
             }
         },
         async submitRecipe(payload){

@@ -127,8 +127,10 @@ export const useUserStore = defineStore("UserStore", {
               );
               const data = await res.json();
               this.user.userLikedRecipes = data.content 
+              return true
         }catch(error){
             console.log(error)
+            return false
         }
     },
     async postComment(payload)

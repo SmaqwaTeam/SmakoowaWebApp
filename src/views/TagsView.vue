@@ -42,7 +42,10 @@ export default{
         }
     },
     created(){
-
+        if(!this.user.userLikedTags && this.user.isLogged)
+        {
+           this.getUserLikedTags()  
+        }
         this.$watch(
       () => this.selectedRecipesTags,
       () => {
