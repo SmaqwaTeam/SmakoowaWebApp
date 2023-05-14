@@ -19,11 +19,13 @@ export default {
   created(){
     this.checkIfUserIsLogged();
     this.getCategories();
-    this.getTags() ; 
+    this.getTags() ;
   },
   methods: {
     ...mapActions(useUserStore, {
         checkIfUserIsLogged: "checkIfUserIsLogged",
+        getLikedRecipes: "getLikedRecipes",
+        getUserLikedTags: "getUserLikedTags",
     }),
     ...mapActions(useRecipesStore,{
       getCategories: "getCategories",
