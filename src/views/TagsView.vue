@@ -4,7 +4,7 @@
         <div class="flex flex-wrap gap-5">
             <div v-for="tag in recipes.tags">
                 <div class="flex flex-row rounded-lg items-center justify-center bg-orange-400 w-fit p-2">
-                    <likeTagButtonVue :tagId="tag.id"></likeTagButtonVue>
+                    <likeTagButton :tagId="tag.id"></likeTagButton>
                     <button @click="addtoArray(tag.id)" type="button" class="rounded-lg bg-orange-500 w-fit p-2" > {{ tag.name }} </button> 
                 </div>    
             
@@ -30,7 +30,7 @@
 import { mapActions, mapState } from 'pinia';
 import { useRecipesStore } from '../stores/RecipesStore';
 import RecipeCard from '../components/RecipeCard.vue';
-import likeTagButtonVue from '../components/likeTagButton.vue';
+import LikeTagButton from '../components/LikeTagButton.vue';
 export default{
     name:'TagsView',
     data(){
@@ -52,7 +52,7 @@ export default{
         console.log(this.selectedRecipesTags)
     })
     },
-    components:{RecipeCard,likeTagButtonVue},
+    components:{RecipeCard,LikeTagButton},
     computed: {
         ...mapState(useRecipesStore,{
             recipes: 'recipes'
