@@ -183,7 +183,7 @@ export default {
       recipe: null,
       recipeid: this.$route.params.editrecipeid,
       isLoaded: false,
-      file: ''
+      file: null
     }
   },
   components: {

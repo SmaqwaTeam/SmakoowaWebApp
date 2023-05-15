@@ -17,12 +17,6 @@
         <p class="text-gray-700">{{ comment.content }}</p>
         <div class="flex flex-row gap-2" v-if="user.isLogged">
           <button
-            @click="showReplyForm(comment.id)"
-            class="text-orange-500 hover:underline focus:outline-none"
-          >
-            Reply
-          </button>
-          <button
             v-if="comment.creatorId == user.id"
             @click="deleteUserComment(comment.id)"
             class="text-orange-500 hover:underline focus:outline-none"
