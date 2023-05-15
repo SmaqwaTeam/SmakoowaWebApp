@@ -30,14 +30,20 @@
         >
           Recipes from this category
         </h1>
-        <div class="flex gap-5 flex-wrap justify-between items-center mx-auto">
+        <div v-if="recipesFromApi" class="flex gap-5 flex-wrap justify-between items-center mx-auto">
           <div v-for="rec in recipesFromApi">
             <RecipeCard :alldata="rec"></RecipeCard>
           </div>
         </div>
+        <div v-else>
+          <Placeholder></Placeholder>
+        </div>
       </div>
     </div>
-    <div v-else>Click tag to show recipes</div>
+    <div v-else-if="!selectedRecipesTags.length">Click tag to show recipes</div>
+    <div v-else>
+       Not found recieps with selected tags 
+    </div>
   </div>
 </template>
 <script>
@@ -45,6 +51,7 @@ import { mapActions, mapState } from 'pinia'
 import { useRecipesStore } from '../stores/RecipesStore'
 import RecipeCard from '../components/RecipeCard.vue'
 import { useUserStore } from '../stores/UserStore'
+import Placeholder from '../components/Placeholder.vue'
 export default {
   name: 'TagsView',
   data () {
@@ -55,23 +62,22 @@ export default {
       showMessage: true
     }
   },
-  mounted () {
+  created () {
     if (this.$route.params.tagId) {
       this.addtoArray(this.$route.params.tagId)
     }
-  },
-  created () {
     if (this.user.isLogged) {
       this.getUserLikedTags()
     }
     this.$watch(
+      
       () => this.selectedRecipesTags,
       () => {
         console.log(this.selectedRecipesTags)
       }
     )
   },
-  components: { RecipeCard },
+  components: { RecipeCard, Placeholder },
   computed: {
     ...mapState(useRecipesStore, {
       recipes: 'recipes'
