@@ -1,10 +1,10 @@
 <template>
   <div
-    class="max-w-sm h-128 max-h-128 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-200"
+    class="max-w-sm  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-200"
   >
     <img
       v-if="imagesrc"
-      class="w-sm h-sm object-cover rounded-t-lg"
+      class="h-96 w-96 max-w-96 max-h-96 rounded-t-lg"
       :src="getimagesrc"
       alt="Recipe Image"
     />
