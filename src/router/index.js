@@ -37,7 +37,12 @@ const routes = [
         path: 'userlikes',
         name: 'UserLikedRecipes',
         component: () => import('../components/UserProfileTabs/UserLikes.vue')
-      }
+      },
+      {
+        path: 'adminpanel',
+        name: 'AdminPanel',
+        component: () => import('../components/UserProfileTabs/AdminPanel.vue')
+      },
     ]
   },
   {

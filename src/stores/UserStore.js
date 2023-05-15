@@ -15,6 +15,26 @@ export const useUserStore = defineStore('UserStore', {
     }
   },
   actions: {
+    async getUserRole(){
+      try {
+        const res = await fetch(
+          import.meta.env.VITE_API_BACKEND +
+            '/api/Users/GetUserById/'+this.user.id,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              accept: 'text/plain',
+              Authorization: 'Bearer ' + localStorage.getItem('userToken')
+            }
+          }
+        )
+        const data = await res.json()
+        this.user.role = data.content.userRoles[0]
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async getStats () {
       try {
         const res = await fetch(
@@ -30,6 +50,8 @@ export const useUserStore = defineStore('UserStore', {
           }
         )
         const data = await res.json()
+        console.log(data.content)
+       return data.content
       } catch (error) {
         console.log(error)
       }

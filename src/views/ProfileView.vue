@@ -44,9 +44,23 @@
               Your favourite Recipes
             </button>
           </li>
+          <li class="mr-2" role="presentation" v-if="user.role == 'Admin'">
+            <button
+              @click="$router.push('/adminpanel')"
+              class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-orange-600 hover:border-orange-300"
+              id="settings-tab"
+              data-tabs-target="#settings"
+              type="button"
+              role="tab"
+              aria-controls="settings"
+              aria-selected="false"
+            >
+              Admin Panel
+            </button>
+          </li>
         </ul>
       </div>
-      <div>
+      <div v-if="user.role">
         <RouterView></RouterView>
       </div>
     </div>
@@ -57,14 +71,24 @@
 </template>
 <script>
 import { useUserStore } from '../stores/UserStore'
-import { mapState } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 export default {
   computed: {
     ...mapState(useUserStore, {
       user: 'user'
     })
   },
+  created(){
+    if(this.user.isLogged)
+    {
+      this.getUserRole()
+    }
+    
+  },
   methods: {
+    ...mapActions(useUserStore,{
+      getUserRole: 'getUserRole'
+    }),
     goToAddRecipe () {
       this.$router.push('/addrecipe')
     }

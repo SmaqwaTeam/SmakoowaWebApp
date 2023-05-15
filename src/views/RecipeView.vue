@@ -52,7 +52,7 @@
           {{ recipe.description }}
         </p>
         <div
-          class="text-xl text-gray-900 bg-orange-200 rounded-lg w-fit p-2"
+          class="text-xl text-gray-900 bg-orange-200 rounded-lg w-fit p-2 cursor-pointer"
           @click="$router.push('/categories/' + recipe.categoryId)"
         >
           Category: {{ getCategoryNameById(recipe.categoryId).name }}
