@@ -88,6 +88,7 @@ export default {
       getUserLikedTags: 'getUserLikedTags'
     }),
     async addtoArray (id) {
+      this.recipesFromApi = null
       if (!this.selectedRecipesTags.find((e) => e === id)) {
         this.selectedRecipesTags.push(id)
         this.recipesFromApi = await this.getRecipesByTags(
