@@ -40,6 +40,7 @@
           <div class="flex flex-row gap-2">
             <LikeButton v-if="user.isLogged" :recipeId="recipe.id">
             </LikeButton>
+            <HeartIcon v-else class="h-6 w-6 text-white fill-current"></HeartIcon>
             <div>{{ recipe.likeCount }}</div>
           </div>
         </div>
@@ -103,9 +104,10 @@ import { useUserStore } from '../stores/UserStore'
 import CommentSection from '../components/CommentSection.vue'
 import AuthorName from '../components/AuthorName.vue'
 import LikeButton from '../components/LikeButton.vue'
+import { HeartIcon } from '@heroicons/vue/24/solid'
 export default {
   name: 'RecipeView',
-  components: { CommentSection, AuthorName, LikeButton },
+  components: { CommentSection, AuthorName, LikeButton, HeartIcon },
   props: {
     id: Number
   },
