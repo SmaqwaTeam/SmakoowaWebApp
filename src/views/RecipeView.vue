@@ -22,13 +22,13 @@
         >
           <img
             v-if="imagesrc"
-            class="h-72 w-72 rounded-t-lg md:h-128 md:w-128"
+            class="h-72 w-72 rounded-t-lg md:h-128 md:w-128 object-cover"
             :src="getimagesrc"
             alt="Recipe Image"
           />
           <img
             v-else
-            class="h-72 w-72 rounded-t-lg md:h-128 md:w-128"
+            class="h-72 w-72 rounded-t-lg md:h-128 md:w-128 object-cover"
             src="../assets/mealicon.jpg"
             alt="Default Recipe Image"
           />
