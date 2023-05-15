@@ -1,24 +1,23 @@
 <template>
-    <p class="size-2xl"> You have been logged out!</p>
+  <p class="size-2xl">You have been logged out!</p>
 </template>
 <script>
-import { useUserStore } from '../stores/UserStore';
-import { mapActions,mapState } from 'pinia';
+import { useUserStore } from '../stores/UserStore'
+import { mapActions, mapState } from 'pinia'
 export default {
   name: 'LogOutView',
-    computed: {
-    ...mapState(useUserStore,{
-      user: "user"
+  computed: {
+    ...mapState(useUserStore, {
+      user: 'user'
     })
-    
   },
-  created(){
-    this.logout();
+  created () {
+    this.logout()
   },
   methods: {
     ...mapActions(useUserStore, {
-        logout: "logoutUser",
-    }),
-  } 
+      logout: 'logoutUser'
+    })
+  }
 }
 </script>

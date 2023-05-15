@@ -1,146 +1,212 @@
 <template>
-    <div class="container mx-auto py-4">
-        <h1 class="text-2xl text-center">Add a new recipe</h1>
-        <form class="px-4">
-          <div class="md:flex md:items-center mb-6">
-    <div class="md:w-1/3">
-      <label class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4" for="inline-password">
-        Title
-      </label>
-    </div>
-    <div class="md:w-2/3">
-      <input v-model="title" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500" id="inline-password" type="text" placeholder="Your dish's name">
-    </div>
-  </div>
-  <div class="md:flex md:items-center mb-6">
-    <div class="md:w-1/3">
-      <label class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4" for="inline-full-name">
-        Description
-      </label>
-    </div>
-    <div class="md:w-2/3">
-      <textarea v-model="description" class="border rounded focus:bg-white focus:border-orange-500 w-full" id="recipe_descr" name="recipe_descr" rows="4" cols="50"> </textarea>
-    </div>
-  </div>
-  <div class="md:flex md:items-center mb-6">
-    <div class="md:w-1/3">
-      <label for="categories" class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4">Category </label>
-    </div>
-      <div class="md:w-2/3">
-        <select v-model="category" id="categories" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500">
-          <option v-for="cat in recipes.categories" :value="cat.id">{{cat.name}}</option>
-        </select>
+  <div class="container mx-auto py-4">
+    <h1 class="text-2xl text-center">Add a new recipe</h1>
+    <form class="px-4">
+      <div class="md:flex md:items-center mb-6">
+        <div class="md:w-1/3">
+          <label
+            class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4"
+            for="inline-password"
+          >
+            Title
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <input
+            v-model="title"
+            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500"
+            id="inline-password"
+            type="text"
+            placeholder="Your dish's name"
+          />
+        </div>
       </div>
-  </div>
-  <div class="md:flex md:items-center mb-6">
-    <div class="md:w-1/3">
-      <label for="tags" class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4">Tags </label>
-    </div>
-      <div class="md:w-2/3">
-        <select v-model="tags" multiple id="tags" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500">
-          <option v-for="tag in recipes.tags" :value="tag.id">{{tag.name}}</option>
-        </select>
+      <div class="md:flex md:items-center mb-6">
+        <div class="md:w-1/3">
+          <label
+            class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4"
+            for="inline-full-name"
+          >
+            Description
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <textarea
+            v-model="description"
+            class="border rounded focus:bg-white focus:border-orange-500 w-full"
+            id="recipe_descr"
+            name="recipe_descr"
+            rows="4"
+            cols="50"
+          >
+          </textarea>
+        </div>
       </div>
-  </div>
-  <div class="md:flex md:items-center mb-6">
-    <div class="md:w-1/3">
-      <label for="categories" class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4">Time to make </label>
-    </div>
-      <div class="md:w-2/3">
-        <input type="range" min="0" max="4" step="0" v-model="timetomake"> 
-        {{ getTimeToMakeFromId(timetomake) }}
+      <div class="md:flex md:items-center mb-6">
+        <div class="md:w-1/3">
+          <label
+            for="categories"
+            class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4"
+            >Category
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <select
+            v-model="category"
+            id="categories"
+            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500"
+          >
+            <option v-for="cat in recipes.categories" :value="cat.id">
+              {{ cat.name }}
+            </option>
+          </select>
+        </div>
       </div>
-  </div>
-  <div class="md:flex md:items-center mb-6">
-    <div class="md:w-1/3">
-      <label for="categories" class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4">Servings </label>
-    </div>
-      <div class="md:w-2/3">
-        <input type="range" min="0" max="5" step="0" v-model="servings"> 
-        {{ getServingsFromId(servings) }}
+      <div class="md:flex md:items-center mb-6">
+        <div class="md:w-1/3">
+          <label
+            for="tags"
+            class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4"
+            >Tags
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <select
+            v-model="tags"
+            multiple
+            id="tags"
+            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500"
+          >
+            <option v-for="tag in recipes.tags" :value="tag.id">
+              {{ tag.name }}
+            </option>
+          </select>
+        </div>
       </div>
-  </div>
-  <div class="md:flex md:items-center mb-6">
-    <div class="md:w-1/3">
-      <label for="categories" class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4">Ingredients </label>
-    </div>
-      <div class="md:w-2/3">
-        <IngredientsForm @ingredientsdata="getIngredients"></IngredientsForm>
+      <div class="md:flex md:items-center mb-6">
+        <div class="md:w-1/3">
+          <label
+            for="categories"
+            class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4"
+            >Time to make
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <input type="range" min="0" max="4" step="0" v-model="timetomake" />
+          {{ getTimeToMakeFromId(timetomake) }}
+        </div>
       </div>
-  </div>
-  <div class="md:flex md:items-center mb-6">
-    <div class="md:w-1/3">
-      <label for="categories" class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4">Recipe Instructions </label>
-    </div>
-      <div class="md:w-2/3">
-        <InstructionsForm @instructionsdata="getInstructions"></InstructionsForm>
+      <div class="md:flex md:items-center mb-6">
+        <div class="md:w-1/3">
+          <label
+            for="categories"
+            class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4"
+            >Servings
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <input type="range" min="0" max="5" step="0" v-model="servings" />
+          {{ getServingsFromId(servings) }}
+        </div>
       </div>
-  </div> 
-      
-  
-  <div class="md:flex md:items-center">
-    <div class="md:w-1/3"></div>
-    <div class="md:w-2/3">
-      <button @click="submitForm" class="shadow bg-orange-500 hover:bg-orange-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-        Add it
-      </button>
-    </div>
+      <div class="md:flex md:items-center mb-6">
+        <div class="md:w-1/3">
+          <label
+            for="categories"
+            class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4"
+            >Ingredients
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <IngredientsForm @ingredientsdata="getIngredients"></IngredientsForm>
+        </div>
+      </div>
+      <div class="md:flex md:items-center mb-6">
+        <div class="md:w-1/3">
+          <label
+            for="categories"
+            class="block text-gray-500 font-bold md:text-center mb-1 md:mb-0 pr-4"
+            >Recipe Instructions
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <InstructionsForm
+            @instructionsdata="getInstructions"
+          ></InstructionsForm>
+        </div>
+      </div>
+
+      <div class="md:flex md:items-center">
+        <div class="md:w-1/3"></div>
+        <div class="md:w-2/3">
+          <button
+            @click="submitForm"
+            class="shadow bg-orange-500 hover:bg-orange-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            type="button"
+          >
+            Add it
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
-</form>
-    </div>
 </template>
 <script>
-import { useRecipesStore } from  '../stores/RecipesStore';
-import { mapState,mapActions } from 'pinia';
+import { useRecipesStore } from '../stores/RecipesStore'
+import { mapState, mapActions } from 'pinia'
 import IngredientsForm from '../components/IngredientsForm.vue'
-import InstructionsForm from '../components/InstructionsForm.vue';
+import InstructionsForm from '../components/InstructionsForm.vue'
 export default {
-  data(){
-    return{
-      title:null,
-      description:null,
+  data () {
+    return {
+      title: null,
+      description: null,
       category: null,
-      tags:[],
+      tags: [],
       timetomake: 2,
-      servings:3,
+      servings: 3,
       instructions: null,
-      ingredients:null,
+      ingredients: null
     }
-    
   },
-  components:{
+  components: {
     IngredientsForm,
-    InstructionsForm,
-},
+    InstructionsForm
+  },
   computed: {
-    ...mapState(useRecipesStore,{
-      recipes: "recipes",
-      
+    ...mapState(useRecipesStore, {
+      recipes: 'recipes'
     })
-    
   },
-  created(){
-},
-methods: {
-  ...mapActions(useRecipesStore, {
-    submitRecipe: "submitRecipe",
-    getTimeToMakeFromId: "getTimeToMakeFromId",
-      getServingsFromId: "getServingsFromId",
-  }),
-  getInstructions(inst){
-    this.instructions= inst
-  },
-  getIngredients(ings){
-    this.ingredients= ings
-  },
-  submitForm(){
-    const tags = Object.values(this.tags)
-    console.log(tags)
-    const payload = {name: this.title, description: this.description, servingsTier: this.servings, timeToMakeTier: this.timetomake, categoryId:this.category, tagIds:tags,ingredients:this.ingredients,instructions:this.instructions}
-    
-    this.submitRecipe(payload)
-  }
-},
+  created () {},
+  methods: {
+    ...mapActions(useRecipesStore, {
+      submitRecipe: 'submitRecipe',
+      getTimeToMakeFromId: 'getTimeToMakeFromId',
+      getServingsFromId: 'getServingsFromId'
+    }),
+    getInstructions (inst) {
+      this.instructions = inst
+    },
+    getIngredients (ings) {
+      this.ingredients = ings
+    },
+    submitForm () {
+      const tags = Object.values(this.tags)
+      console.log(tags)
+      const payload = {
+        name: this.title,
+        description: this.description,
+        servingsTier: this.servings,
+        timeToMakeTier: this.timetomake,
+        categoryId: this.category,
+        tagIds: tags,
+        ingredients: this.ingredients,
+        instructions: this.instructions
+      }
 
+      this.submitRecipe(payload)
+    }
+  }
 }
 </script>

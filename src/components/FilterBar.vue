@@ -1,5 +1,3 @@
 <template>
-    <form>
-        
-    </form>
+  <form></form>
 </template>

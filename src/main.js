@@ -7,8 +7,8 @@ import { createPinia } from 'pinia'
 
 const pinia = createPinia()
 const app = createApp(App)
-app.config.globalProperties.axios=axios;
+app.config.globalProperties.axios = axios
 pinia.use(({ store }) => {
-    store.$router = markRaw(router)
-  });
+  store.$router = markRaw(router)
+})
 app.use(router).use(pinia).mount('#app')

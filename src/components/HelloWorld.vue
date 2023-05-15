@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 defineProps({
-  msg: String,
+  msg: String
 })
 
 const count = ref(0)
@@ -19,17 +19,17 @@ const count = ref(0)
     </p>
   </div>
   <div class="grid grid-cols-5 gap-2">
-  <div class="bg-indigo-50 aspect-square"></div>
-  <div class="bg-indigo-100 aspect-square"></div>
-  <div class="bg-indigo-200 aspect-square"></div>
-  <div class="bg-indigo-300 aspect-square"></div>
-  <div class="bg-indigo-400 aspect-square"></div>
-  <div class="bg-indigo-500 aspect-square"></div>
-  <div class="bg-indigo-600 aspect-square"></div>
-  <div class="bg-indigo-700 aspect-square"></div>
-  <div class="bg-indigo-800 aspect-square"></div>
-  <div class="bg-indigo-900 aspect-square"></div>
-</div>
+    <div class="bg-indigo-50 aspect-square"></div>
+    <div class="bg-indigo-100 aspect-square"></div>
+    <div class="bg-indigo-200 aspect-square"></div>
+    <div class="bg-indigo-300 aspect-square"></div>
+    <div class="bg-indigo-400 aspect-square"></div>
+    <div class="bg-indigo-500 aspect-square"></div>
+    <div class="bg-indigo-600 aspect-square"></div>
+    <div class="bg-indigo-700 aspect-square"></div>
+    <div class="bg-indigo-800 aspect-square"></div>
+    <div class="bg-indigo-900 aspect-square"></div>
+  </div>
 
   <p>
     Check out

@@ -1,172 +1,277 @@
 <template>
-    <div class="space-y-4">
-      <div v-for="comment in commentsArray" :key="comment.id" class="flex flex-col space-x-4">
-        <div class="flex-1">
-          <div class="flex justify-between">
-            <h3 class="text-lg font-medium"><AuthorName :creatorId="parseInt(comment.creatorId)"></AuthorName></h3>
-            <span class="text-sm text-gray-500">{{comment.createdAt.split('T')[0]}}</span>
-          </div>
-          <p class="text-gray-700">{{ comment.content }}</p>
-          <div class="flex flex-row gap-2" v-if="user.isLogged">
-            <button @click="showReplyForm(comment.id)" class="text-orange-500 hover:underline focus:outline-none">Reply</button>
-            <button  v-if="comment.creatorId == user.id" @click="deleteUserComment(comment.id)" class=" text-orange-500 hover:underline focus:outline-none">Delete</button>
-            <button  v-if="comment.creatorId == user.id" @click="showEditComment(comment.id)" class=" text-orange-500 hover:underline focus:outline-none">Edit</button>
+  <div class="space-y-4">
+    <div
+      v-for="comment in commentsArray"
+      :key="comment.id"
+      class="flex flex-col space-x-4"
+    >
+      <div class="flex-1">
+        <div class="flex justify-between">
+          <h3 class="text-lg font-medium">
+            <AuthorName :creatorId="parseInt(comment.creatorId)"></AuthorName>
+          </h3>
+          <span class="text-sm text-gray-500">{{
+            comment.createdAt.split("T")[0]
+          }}</span>
         </div>
-          <form v-if="comment.id === editCommentForm.originalCommentId && user.isLogged" @submit.prevent="editUserComment" class="mt-4 flex space-x-4">
-            <div class="flex-1">
-              <div class="flex items-center space-x-4">
-                <input v-model="editCommentForm.newContent" type="text" class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white" placeholder="Edit a Comment..." required>
-              </div>
-              <button type="submit" class="mt-2 px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:bg-orange-600">Edit Comment</button>
-            </div>
-          </form> 
+        <p class="text-gray-700">{{ comment.content }}</p>
+        <div class="flex flex-row gap-2" v-if="user.isLogged">
+          <button
+            @click="showReplyForm(comment.id)"
+            class="text-orange-500 hover:underline focus:outline-none"
+          >
+            Reply
+          </button>
+          <button
+            v-if="comment.creatorId == user.id"
+            @click="deleteUserComment(comment.id)"
+            class="text-orange-500 hover:underline focus:outline-none"
+          >
+            Delete
+          </button>
+          <button
+            v-if="comment.creatorId == user.id"
+            @click="showEditComment(comment.id)"
+            class="text-orange-500 hover:underline focus:outline-none"
+          >
+            Edit
+          </button>
         </div>
-        <div class="mt-4 space-y-4 flex flex-col">
-            <div v-for="reply in comment.commentReplies" :key="reply.id" class="flex space-x-4">
-              <div class="flex-1">
-                <div class="flex justify-between">
-                    <h4 class="text-base font-medium"><AuthorName :creatorId="parseInt(reply.creatorId)"></AuthorName> </h4>
-                  <span class="text-sm text-gray-500">{{reply.createdAt.split('T')[0]}}</span>
-                </div>
-                <p class="text-gray-700">{{ reply.content }}</p>
-                <button v-if="comment.creatorId == user.id && user.isLogged" @click="deleteUserReply(reply.id)" class=" text-orange-500 hover:underline focus:outline-none">Delete</button>
-                <button v-if="comment.creatorId == user.id && user.isLogged" @click="showEditReply(reply.id)" class=" text-orange-500 hover:underline focus:outline-none">Edit</button>
+        <form
+          v-if="
+            comment.id === editCommentForm.originalCommentId && user.isLogged
+          "
+          @submit.prevent="editUserComment"
+          class="mt-4 flex space-x-4"
+        >
+          <div class="flex-1">
+            <div class="flex items-center space-x-4">
+              <input
+                v-model="editCommentForm.newContent"
+                type="text"
+                class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white"
+                placeholder="Edit a Comment..."
+                required
+              />
             </div>
-              <form v-if="reply.id === editReplyForm.originalReplyId && user.isLogged" @submit.prevent="editUserReply" class="mt-4 flex space-x-4">
-            <div class="flex-1">
-              <div class="flex items-center space-x-4">
-                <input v-model="editReplyForm.newContent" type="text" class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white" placeholder="Edit a reply..." required>
-              </div>
-              <button type="submit" class="mt-2 px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:bg-orange-600">Edit reply</button>
-            </div>
-          </form> 
-            </div>
+            <button
+              type="submit"
+              class="mt-2 px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:bg-orange-600"
+            >
+              Edit Comment
+            </button>
           </div>
-          
-          <form v-if="comment.id === replyForm.parentId && user.isLogged" @submit.prevent="addCommentReply" class="mt-4 flex space-x-4">
+        </form>
+      </div>
+      <div class="mt-4 space-y-4 flex flex-col">
+        <div
+          v-for="reply in comment.commentReplies"
+          :key="reply.id"
+          class="flex space-x-4"
+        >
+          <div class="flex-1">
+            <div class="flex justify-between">
+              <h4 class="text-base font-medium">
+                <AuthorName :creatorId="parseInt(reply.creatorId)"></AuthorName>
+              </h4>
+              <span class="text-sm text-gray-500">{{
+                reply.createdAt.split("T")[0]
+              }}</span>
+            </div>
+            <p class="text-gray-700">{{ reply.content }}</p>
+            <button
+              v-if="comment.creatorId == user.id && user.isLogged"
+              @click="deleteUserReply(reply.id)"
+              class="text-orange-500 hover:underline focus:outline-none"
+            >
+              Delete
+            </button>
+            <button
+              v-if="comment.creatorId == user.id && user.isLogged"
+              @click="showEditReply(reply.id)"
+              class="text-orange-500 hover:underline focus:outline-none"
+            >
+              Edit
+            </button>
+          </div>
+          <form
+            v-if="reply.id === editReplyForm.originalReplyId && user.isLogged"
+            @submit.prevent="editUserReply"
+            class="mt-4 flex space-x-4"
+          >
             <div class="flex-1">
               <div class="flex items-center space-x-4">
-                <input v-model="replyForm.content" type="text" class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white" placeholder="Add a reply..." required>
+                <input
+                  v-model="editReplyForm.newContent"
+                  type="text"
+                  class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white"
+                  placeholder="Edit a reply..."
+                  required
+                />
               </div>
-              <button type="submit" class="mt-2 px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:bg-orange-600">Post reply</button>
+              <button
+                type="submit"
+                class="mt-2 px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:bg-orange-600"
+              >
+                Edit reply
+              </button>
             </div>
           </form>
         </div>
-        
-        <form v-if="user.isLogged" @submit.prevent="addComment" class="flex space-x-4">
+      </div>
+
+      <form
+        v-if="comment.id === replyForm.parentId && user.isLogged"
+        @submit.prevent="addCommentReply"
+        class="mt-4 flex space-x-4"
+      >
         <div class="flex-1">
-            <div class="flex items-center space-x-4">
-                <input v-model="userComment" type="text" class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white" placeholder="Add a comment..." required>
-            </div>
-        <button type="submit" class="mt-2 px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:bg-orange-600">Post comment</button>
+          <div class="flex items-center space-x-4">
+            <input
+              v-model="replyForm.content"
+              type="text"
+              class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white"
+              placeholder="Add a reply..."
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="mt-2 px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:bg-orange-600"
+          >
+            Post reply
+          </button>
         </div>
-        </form>
+      </form>
     </div>
+
+    <form
+      v-if="user.isLogged"
+      @submit.prevent="addComment"
+      class="flex space-x-4"
+    >
+      <div class="flex-1">
+        <div class="flex items-center space-x-4">
+          <input
+            v-model="userComment"
+            type="text"
+            class="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white"
+            placeholder="Add a comment..."
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="mt-2 px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:bg-orange-600"
+        >
+          Post comment
+        </button>
+      </div>
+    </form>
+  </div>
 </template>
 <script>
-import { mapActions, mapState } from 'pinia';
-import {useUserStore} from '../stores/UserStore'
-import AuthorName from './AuthorName.vue';
+import { mapActions, mapState } from 'pinia'
+import { useUserStore } from '../stores/UserStore'
+import AuthorName from './AuthorName.vue'
 export default {
-    name: 'CommentSection',
-    components:{AuthorName},
-    props: {
-        id: Number,
-        comments: Array,
-    },
-    computed:{
-        ...mapState(useUserStore,{
-            user:'user'
-        })
-    },
-  data() {
+  name: 'CommentSection',
+  components: { AuthorName },
+  props: {
+    id: Number,
+    comments: Array
+  },
+  computed: {
+    ...mapState(useUserStore, {
+      user: 'user'
+    })
+  },
+  data () {
     return {
       commentsArray: [],
-      userComment: "",
-      replyForm:{
+      userComment: '',
+      replyForm: {
         parentId: null,
-        content: "", 
+        content: ''
       },
       editCommentForm: {
         originalCommentId: null,
-        newContent: "", 
+        newContent: ''
       },
       editReplyForm: {
         originalReplyId: null,
-        newContent: "", 
-      },
-       
-    };
+        newContent: ''
+      }
+    }
   },
-  created(){
+  created () {
     this.commentsArray = this.comments
   },
   methods: {
-    
-    ...mapActions(useUserStore,{
-        postComment: 'postComment',
-        deleteComment: 'deleteComment',
-        deleteReply: 'deleteReply',
-        addReply: 'addReply',
-        editComment: 'editComment',
-        editReply: 'editReply',
+    ...mapActions(useUserStore, {
+      postComment: 'postComment',
+      deleteComment: 'deleteComment',
+      deleteReply: 'deleteReply',
+      addReply: 'addReply',
+      editComment: 'editComment',
+      editReply: 'editReply'
     }),
-    async addComment() {
-      const payload = {recipeId: this.id,content: this.userComment}
-        let comment = await this.postComment(payload)
-        if(comment)
-        {
-          this.$router.go(0);
-        }
-        
+    async addComment () {
+      const payload = { recipeId: this.id, content: this.userComment }
+      const comment = await this.postComment(payload)
+      if (comment) {
+        this.$router.go(0)
+      }
     },
-    async editUserComment(){
-        const payload = {commentId: this.editCommentForm.originalCommentId,content: this.editCommentForm.newContent}
-       let comment = await this.editComment(payload)
-       if(comment)
-       {
-        this.$router.go(0);
-       }
-        
+    async editUserComment () {
+      const payload = {
+        commentId: this.editCommentForm.originalCommentId,
+        content: this.editCommentForm.newContent
+      }
+      const comment = await this.editComment(payload)
+      if (comment) {
+        this.$router.go(0)
+      }
     },
-   async deleteUserComment(id){
-        let comment = await this.deleteComment(id)
-        if(comment)
-        {
-          this.$router.go(0);
-        }
+    async deleteUserComment (id) {
+      const comment = await this.deleteComment(id)
+      if (comment) {
+        this.$router.go(0)
+      }
     },
-   async addCommentReply() {
-        const payload = {commentId: this.replyForm.parentId,content: this.replyForm.content }
-        let res = await this.addReply(payload)
-        if(res)
-        {
-          this.$router.go(0);
-        }
+    async addCommentReply () {
+      const payload = {
+        commentId: this.replyForm.parentId,
+        content: this.replyForm.content
+      }
+      const res = await this.addReply(payload)
+      if (res) {
+        this.$router.go(0)
+      }
     },
-   async editUserReply(){
-        const payload = {replyId: this.editReplyForm.originalReplyId,content: this.editReplyForm.newContent}
-        let res = await this.editReply(payload)
-        if(res)
-        {
-          this.$router.go(0);
-        }     
+    async editUserReply () {
+      const payload = {
+        replyId: this.editReplyForm.originalReplyId,
+        content: this.editReplyForm.newContent
+      }
+      const res = await this.editReply(payload)
+      if (res) {
+        this.$router.go(0)
+      }
     },
-    deleteUserReply(id){
-        this.deleteReply(id)
-       this.$router.go(0)
+    deleteUserReply (id) {
+      this.deleteReply(id)
+      this.$router.go(0)
     },
-    showReplyForm(commentId) {
-      this.replyForm.parentId = commentId;
+    showReplyForm (commentId) {
+      this.replyForm.parentId = commentId
     },
-    showEditReply(commentId){
-        this.editReplyForm.originalReplyId = commentId
+    showEditReply (commentId) {
+      this.editReplyForm.originalReplyId = commentId
     },
-    showEditComment(commentId){
-        this.editCommentForm.originalCommentId = commentId
-    },
-    
-  },
-};
-</script>         
-  
+    showEditComment (commentId) {
+      this.editCommentForm.originalCommentId = commentId
+    }
+  }
+}
+</script>
