@@ -4,7 +4,7 @@
             <p>{{ stat.controllerName }}</p>
             <p>
               <div v-for="action in stat.actionStatistics">
-                    {{ action }}
+                    {{ action.actionName }}: {{ action.requestCount }}
               </div>  
             </p>
         </div>    
