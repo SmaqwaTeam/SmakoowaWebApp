@@ -25,7 +25,6 @@ export const useRecipesStore = defineStore('RecipeStore', {
       const TimeToMake = [
         'Up To 15 Min',
         'From 15 To 30 Min',
-        'From 30 To 45Min',
         'From 30 To 45 Min',
         'From 45 To 60 Min',
         'Over 60 Min'
