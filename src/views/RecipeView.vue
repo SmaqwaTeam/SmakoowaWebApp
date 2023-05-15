@@ -18,7 +18,7 @@
         </div>
         <hr />
         <div
-          class="h-auto max-w-full rounded-lg border-orange-300 border-solid border-2 md:max-w-1/2 mx-auto my-2"
+          class="h-auto max-w-full rounded-lg border-orange-300 border-solid border-2 md:min-w-1/2  mx-auto my-2"
         >
           <img
             v-if="imagesrc"
