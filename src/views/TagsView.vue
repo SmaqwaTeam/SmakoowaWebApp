@@ -90,7 +90,6 @@ export default {
     async addtoArray (id) {
       if (!this.selectedRecipesTags.find((e) => e === id)) {
         this.selectedRecipesTags.push(id)
-        console.log(this.selectedRecipesTags)
         this.recipesFromApi = await this.getRecipesByTags(
           this.selectedRecipesTags
         )

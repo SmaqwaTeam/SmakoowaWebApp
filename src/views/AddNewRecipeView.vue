@@ -193,7 +193,6 @@ export default {
     },
     submitForm () {
       const tags = Object.values(this.tags)
-      console.log(tags)
       const payload = {
         name: this.title,
         description: this.description,

@@ -75,7 +75,7 @@ export default {
       deleteRecipe: 'deleteRecipe'
     }),
     pushToPage (id) {
-      console.log(this.getimagesrc)
+  
       this.$router.push('/recipe/' + id)
     },
     editPage (id) {
@@ -85,6 +85,7 @@ export default {
       const res = await this.deleteRecipe(id).then(function (result) {
         return result
       })
+      console.log(res)
       this.show = false
     }
   },

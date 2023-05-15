@@ -50,7 +50,6 @@ export default {
     this.$watch(
       () => this.$route.params.categoryId,
       () => {
-        console.log(this.$route.params.categoryId)
         if (this.$route.params.categoryId) {
           this.showMessage = false
           this.categoryId = this.$route.params.categoryId

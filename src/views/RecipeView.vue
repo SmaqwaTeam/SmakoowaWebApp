@@ -141,9 +141,7 @@ export default {
   async created () {
     this.recipe = await this.getRecipeById(this.recipeid)
     this.imagesrc = this.recipe.imageId
-    console.log(this.recipe)
     this.ingredients = await this.groupByKey(this.recipe.ingredients, 'group')
-    console.log(this.ingredients)
   },
   methods: {
     ...mapActions(useRecipesStore, {

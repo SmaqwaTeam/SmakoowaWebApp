@@ -34,7 +34,6 @@ export default {
         return result
       })
       this.recipes = recipes
-      console.log(this.recipes)
     }
   },
   components: { SearchBar, RecipeCard },

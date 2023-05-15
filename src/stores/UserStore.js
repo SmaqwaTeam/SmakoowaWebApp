@@ -9,11 +9,31 @@ export const useUserStore = defineStore('UserStore', {
         isLogged: false,
         userRecipes: [],
         userLikedTags: [],
-        userLikedRecipes: []
+        userLikedRecipes: [],
+        role: ''
       }
     }
   },
   actions: {
+    async getStats () {
+      try {
+        const res = await fetch(
+          import.meta.env.VITE_API_BACKEND +
+            '/api/Statistics/GetAll',
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              accept: 'text/plain',
+              Authorization: 'Bearer ' + localStorage.getItem('userToken')
+            }
+          }
+        )
+        const data = await res.json()
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async registerUser (payload) {
       const username = payload.userlogin
       const useremail = payload.useremail
@@ -67,7 +87,6 @@ export const useUserStore = defineStore('UserStore', {
         }
       )
       const data = await res.json()
-      console.log(data)
       if (data.successStatus) {
         const id = data.content.user.id
         const usertoken = data.content.token
@@ -161,7 +180,6 @@ export const useUserStore = defineStore('UserStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
         return true
       } catch (error) {
         console.log(error)
@@ -189,7 +207,6 @@ export const useUserStore = defineStore('UserStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
         return true
       } catch (error) {
         console.log(error)
@@ -212,7 +229,7 @@ export const useUserStore = defineStore('UserStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
+
         return true
       } catch (error) {
         console.log(error)
@@ -235,7 +252,6 @@ export const useUserStore = defineStore('UserStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
         return true
       } catch (error) {
         console.log(error)
@@ -263,7 +279,6 @@ export const useUserStore = defineStore('UserStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
         return true
       } catch (error) {
         console.log(error)
@@ -271,7 +286,6 @@ export const useUserStore = defineStore('UserStore', {
       }
     },
     async editReply (payload) {
-      console.log(payload)
       const replyId = payload.replyId
       const content = payload.content
       try {
@@ -292,7 +306,6 @@ export const useUserStore = defineStore('UserStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
         return true
       } catch (error) {
         console.log(error)
@@ -312,7 +325,6 @@ export const useUserStore = defineStore('UserStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -332,7 +344,6 @@ export const useUserStore = defineStore('UserStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -351,7 +362,6 @@ export const useUserStore = defineStore('UserStore', {
           }
         )
         const data = await res.json()
-        console.log(data.content)
         this.user.userLikedTags = data.content
       } catch (error) {
         console.log(error)

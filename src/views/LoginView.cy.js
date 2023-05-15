@@ -8,5 +8,5 @@ describe('<LoginView />', () => {
     cy.contains('Password')
     cy.contains('Sign Up')
     cy.get('.shadow').click()
-})
+  })
 })
