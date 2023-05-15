@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div v-if="recipesFromApi">
+    <div v-if="recipesFromApi.length">
       <div class="flex flex-col mt-5">
         <h1
           class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl"
@@ -49,7 +49,7 @@ export default {
   name: 'TagsView',
   data () {
     return {
-      recipesFromApi: null,
+      recipesFromApi: [],
       selectedRecipesTags: [],
       tagId: null,
       showMessage: true
@@ -88,7 +88,7 @@ export default {
       getUserLikedTags: 'getUserLikedTags'
     }),
     async addtoArray (id) {
-      this.recipesFromApi = null
+      this.recipesFromApi = []
       if (!this.selectedRecipesTags.find((e) => e === id)) {
         this.selectedRecipesTags.push(id)
         this.recipesFromApi = await this.getRecipesByTags(
