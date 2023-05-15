@@ -22,7 +22,7 @@
         >
           <img
             v-if="imagesrc"
-            class="h-72 w-72 rounded-t-lg"
+            class="h-72 w-72 rounded-t-lg md:h-144 md:w-144"
             :src="getimagesrc"
             alt="Recipe Image"
           />
