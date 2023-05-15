@@ -1,6 +1,6 @@
 <template>
   <div
-    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-200"
+    class="max-w-sm h-128 max-h-128 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-200"
   >
     <img
       v-if="imagesrc"
