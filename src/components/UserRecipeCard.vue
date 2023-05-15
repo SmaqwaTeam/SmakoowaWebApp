@@ -1,5 +1,5 @@
 <template>
-    <div v-if="show" class="flex items-center w-full max-w-1/2 my-2 p-4 bg-orange-300 rounded-lg">
+    <div v-if="show" class="flex items-center w-full my-2 p-4 bg-orange-300 rounded-lg">
         <div class="flex-shrink-0">
             <img v-if="imagesrc" class="w-8 h-8 rounded-full" :src="getimagesrc" alt="Recipe Image">
             <img v-else class="w-8 h-8 rounded-full" src="../assets/mealicon.jpg" alt="Default Recipe Image">
