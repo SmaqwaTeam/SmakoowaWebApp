@@ -21,6 +21,7 @@
     <div class="flex-auto w-1/2 border-2 border-orange-300">
       <input
         class="w-full border-orange-400 focus:border-orange-500 outline-none"
+        maxlength="50"
         type="text"
         v-model="ingredient"
         placeholder="Add another ingredient"

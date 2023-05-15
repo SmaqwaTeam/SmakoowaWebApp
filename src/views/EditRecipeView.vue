@@ -93,7 +93,7 @@
         </div>
         <div class="md:w-2/3">
           <input type="range" min="0" max="4" step="0" v-model="timetomake" />
-          {{ timetomake }}
+          {{ getTimeToMakeFromId(timetomake)}}
         </div>
       </div>
       <div class="md:flex md:items-center mb-6">
@@ -106,7 +106,7 @@
         </div>
         <div class="md:w-2/3">
           <input type="range" min="0" max="5" step="0" v-model="servings" />
-          {{ servings }}
+          {{ getServingsFromId(servings) }}
         </div>
       </div>
       <div class="md:flex md:items-center mb-6">
@@ -214,7 +214,9 @@ export default {
     ...mapActions(useRecipesStore, {
       uploadImage: 'uploadImage',
       editRecipe: 'editRecipe',
-      getRecipeById: 'getRecipeById'
+      getRecipeById: 'getRecipeById',
+      getTimeToMakeFromId: 'getTimeToMakeFromId',
+      getServingsFromId: 'getServingsFromId'
     }),
     getInstructions (inst) {
       this.instructions = inst
