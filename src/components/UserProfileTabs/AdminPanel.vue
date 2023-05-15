@@ -1,10 +1,7 @@
 <template>
     <div v-if="user.role === 'Admin'">
         <div v-for="stat in stats" class="my-2">
-            <p>{{ stat.ControllerName }}</p>
-            <div v-for="action in stat">
-                {{ action.actionName }}: {{ action.requestCount }}
-            </div>
+            <p>{{ stat }}</p>
         </div>    
     </div>
     <div v-else>
@@ -28,6 +25,7 @@ export default{
     },
    async created(){
        this.stats = await this.getStats()
+       console.log(stats)
     },
     methods:{
         ...mapActions(useUserStore,{
