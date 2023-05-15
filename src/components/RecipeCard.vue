@@ -69,7 +69,6 @@ export default {
     alldata: Object
   },
   created () {
-    console.log(this.alldata)
   },
   components: { LikeButton, HeartIcon },
   computed: {

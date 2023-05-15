@@ -197,7 +197,6 @@ export default {
   },
   async created () {
     this.recipe = await this.getRecipeById(this.recipeid)
-    console.log(this.recipe)
     if (this.recipe) {
       this.isLoaded = true
       this.title = this.recipe.name
@@ -238,7 +237,6 @@ export default {
       }
       this.editRecipe(payload)
       if (this.file != null) {
-        console.log('aeaseaseae')
         const payload = { file: this.file, recipeid: this.recipeid }
         this.uploadImage(payload)
       }

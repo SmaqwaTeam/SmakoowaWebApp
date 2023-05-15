@@ -87,7 +87,6 @@ export const useRecipesStore = defineStore('RecipeStore', {
             slug
         )
         const content = res.data.content
-        console.log(content)
         return content
       } catch (error) {
         console.log(error)
@@ -124,7 +123,6 @@ export const useRecipesStore = defineStore('RecipeStore', {
       }
     },
     async submitRecipe (payload) {
-      console.log(payload)
       try {
         const res = await fetch(
           import.meta.env.VITE_API_BACKEND + '/api/Recipes/Create',
@@ -148,9 +146,7 @@ export const useRecipesStore = defineStore('RecipeStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
         if (data.successStatus) {
-          console.log(data.message)
           this.$router.push('/profile')
         } else {
           alert(data.message)
@@ -160,7 +156,6 @@ export const useRecipesStore = defineStore('RecipeStore', {
       }
     },
     async editRecipe (payload) {
-      console.log(payload)
       try {
         const res = await fetch(
           import.meta.env.VITE_API_BACKEND +
@@ -186,9 +181,7 @@ export const useRecipesStore = defineStore('RecipeStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
         if (data.successStatus) {
-          console.log(data.message)
           this.$router.push('/profile')
         } else {
           alert(data.message)
@@ -198,7 +191,6 @@ export const useRecipesStore = defineStore('RecipeStore', {
       }
     },
     async uploadImage (payload) {
-      console.log(payload)
       const formData = new FormData()
       formData.append('image', payload.file)
       formData.append('type', payload.file.type)
@@ -217,9 +209,7 @@ export const useRecipesStore = defineStore('RecipeStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
         if (data.successStatus) {
-          console.log(data.message)
           this.$router.push('/profile')
         } else {
           alert(data.message)
@@ -236,7 +226,6 @@ export const useRecipesStore = defineStore('RecipeStore', {
             imageID
         )
         const image = res.data
-        console.log(image)
       } catch (error) {
         console.log(error)
       }
@@ -249,7 +238,6 @@ export const useRecipesStore = defineStore('RecipeStore', {
             keyword
         )
         const data = res.data.content
-        console.log(data)
         return data
       } catch (error) {
         console.log(error)
@@ -270,7 +258,6 @@ export const useRecipesStore = defineStore('RecipeStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -290,7 +277,6 @@ export const useRecipesStore = defineStore('RecipeStore', {
           }
         )
         const data = await res.json()
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
