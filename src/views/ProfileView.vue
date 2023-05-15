@@ -46,7 +46,7 @@
           </li>
           <li class="mr-2" role="presentation" v-if="user.role == 'Admin'">
             <button
-              @click="$router.push('/adminpanel')"
+              @click="$router.push('/profile/adminpanel')"
               class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-orange-600 hover:border-orange-300"
               id="settings-tab"
               data-tabs-target="#settings"
