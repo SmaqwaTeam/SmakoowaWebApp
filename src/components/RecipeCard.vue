@@ -4,13 +4,13 @@
   >
     <img
       v-if="imagesrc"
-      class="h-sm object-cover rounded-t-lg"
+      class="h-96 w-96 max-w-96 max-h-96 object-cover rounded-t-lg"
       :src="getimagesrc"
       alt="Recipe Image"
     />
     <img
       v-else
-      class="h-sm object-cover rounded-t-lg"
+      class="rounded-t-lg"
       src="../assets/mealicon.jpg"
       alt="Default Recipe Image"
     />
