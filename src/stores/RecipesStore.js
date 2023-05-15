@@ -80,6 +80,7 @@ export const useRecipesStore = defineStore('RecipeStore', {
     },
     async getRecipesByTags (arrayTagIds) {
       const slug = this.getSlugTagId(arrayTagIds)
+      console.log(slug)
       try {
         const res = await axios.get(
           import.meta.env.VITE_API_BACKEND +
@@ -87,6 +88,7 @@ export const useRecipesStore = defineStore('RecipeStore', {
             slug
         )
         const content = res.data.content
+        console.log(content)
         return content
       } catch (error) {
         console.log(error)
