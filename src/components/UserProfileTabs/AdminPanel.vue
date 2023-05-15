@@ -1,7 +1,12 @@
 <template>
-    <div v-if="user.role === 'Admin'">
+    <div v-if="user.role === 'Admin' && stats">
         <div v-for="stat in stats" class="my-2">
-            <p>{{ stat }}</p>
+            <p>{{ stat.controllerName }}</p>
+            <p>
+              <div v-for="action in stat.actionStatistics">
+                    {{ action }}
+              </div>  
+            </p>
         </div>    
     </div>
     <div v-else>
