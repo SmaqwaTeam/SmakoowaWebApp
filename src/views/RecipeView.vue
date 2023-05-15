@@ -18,11 +18,11 @@
         </div>
         <hr />
         <div
-          class="w-full rounded-lg border-orange-300 border-solid border-2 md:w-1/3 mx-auto"
+          class="w-fit h-fit rounded-lg border-orange-300 border-solid border-2 mx-auto"
         >
           <img
             v-if="imagesrc"
-            class="h-48 w-72 rounded-t-lg"
+            class="h-72 w-72 rounded-t-lg"
             :src="getimagesrc"
             alt="Recipe Image"
           />
