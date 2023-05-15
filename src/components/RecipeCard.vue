@@ -4,7 +4,7 @@
   >
     <img
       v-if="imagesrc"
-      class="min-h-96 min-w-96 h-96 w-96 max-w-96 max-h-96 rounded-t-lg"
+      class="min-h-96 min-w-96 h-96 w-96 max-w-96 max-h-96 object-cover rounded-t-lg"
       :src="getimagesrc"
       alt="Recipe Image"
     />
